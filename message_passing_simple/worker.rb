@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
-require_relative 'say_hello_activity'
+require_relative 'call_greeting_service'
+require_relative 'greeting_workflow'
+require 'logger'
 require 'temporalio/client'
 require 'temporalio/worker'
 
 # Create a client
 client = Temporalio::Client.connect('localhost:7233', 'default')
 
-# Create worker with the client and activity
+# Create worker with the activity and workflow
 worker = Temporalio::Worker.new(
   client:,
-  task_queue: 'activity-worker-sample',
-  # By providing the class to the activity, it will be instantiated for every
-  # attempt. If we provide an instance (e.g. SayHelloActivity.new), the same
-  # instance is reused.
-  activities: [ActivityWorker::SayHelloActivity],
+  task_queue: 'message-passing-simple-sample',
+  activities: [MessagePassingSimple::CallGreetingService],
+  workflows: [MessagePassingSimple::GreetingWorkflow],
   workflow_executor: Temporalio::Worker::WorkflowExecutor::ThreadPool.default
 )
 

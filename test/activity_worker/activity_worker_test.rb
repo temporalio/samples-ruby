@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'test'
-require 'activity_worker/activity'
+require 'activity_worker/say_hello_activity'
 require 'temporalio/testing'
 
 module ActivityWorker
