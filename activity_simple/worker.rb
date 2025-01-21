@@ -23,8 +23,7 @@ worker = Temporalio::Worker.new(
   client:,
   task_queue: 'activity-simple-sample',
   activities: [select_from_db_activity, ActivitySimple::MyActivities::AppendSuffix],
-  workflows: [ActivitySimple::MyWorkflow],
-  workflow_executor: Temporalio::Worker::WorkflowExecutor::ThreadPool.default
+  workflows: [ActivitySimple::MyWorkflow]
 )
 
 # Run the worker until SIGINT

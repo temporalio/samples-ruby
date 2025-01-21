@@ -14,8 +14,7 @@ worker = Temporalio::Worker.new(
   client:,
   task_queue: 'message-passing-simple-sample',
   activities: [MessagePassingSimple::CallGreetingService],
-  workflows: [MessagePassingSimple::GreetingWorkflow],
-  workflow_executor: Temporalio::Worker::WorkflowExecutor::ThreadPool.default
+  workflows: [MessagePassingSimple::GreetingWorkflow]
 )
 
 # Run the worker until SIGINT

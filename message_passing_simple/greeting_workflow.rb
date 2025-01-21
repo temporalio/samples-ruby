@@ -65,7 +65,7 @@ module MessagePassingSimple
 
     workflow_update
     def apply_language_with_lookup(new_language)
-      # This update handler is async, so it can execute an activity.
+      # Call an activity if it's not there.
       unless @greetings.include?(new_language.to_sym)
         # We use a mutex so that, if this handler is executed multiple times, each execution can schedule the activity
         # only when the previously scheduled activity has completed. This ensures that multiple calls to

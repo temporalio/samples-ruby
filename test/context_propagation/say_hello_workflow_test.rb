@@ -22,8 +22,7 @@ module ContextPropagation
           client:,
           task_queue: "tq-#{SecureRandom.uuid}",
           activities: [SayHelloActivity],
-          workflows: [SayHelloWorkflow],
-          workflow_executor: Temporalio::Worker::WorkflowExecutor::ThreadPool.default
+          workflows: [SayHelloWorkflow]
         )
         worker.run do
           # Start workflow with thread local, send signal, confirm result

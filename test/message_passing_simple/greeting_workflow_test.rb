@@ -15,8 +15,7 @@ module MessagePassingSimple
           client: env.client,
           task_queue: "tq-#{SecureRandom.uuid}",
           activities: [CallGreetingService],
-          workflows: [GreetingWorkflow],
-          workflow_executor: Temporalio::Worker::WorkflowExecutor::ThreadPool.default
+          workflows: [GreetingWorkflow]
         )
         worker.run { yield env.client, worker }
       end

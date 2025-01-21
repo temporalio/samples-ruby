@@ -21,8 +21,7 @@ worker = Temporalio::Worker.new(
   client:,
   task_queue: 'context-propagation-sample',
   activities: [ContextPropagation::SayHelloActivity],
-  workflows: [ContextPropagation::SayHelloWorkflow],
-  workflow_executor: Temporalio::Worker::WorkflowExecutor::ThreadPool.default
+  workflows: [ContextPropagation::SayHelloWorkflow]
 )
 
 # Run the worker until SIGINT

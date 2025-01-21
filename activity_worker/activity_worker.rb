@@ -14,8 +14,7 @@ worker = Temporalio::Worker.new(
   # By providing the class to the activity, it will be instantiated for every
   # attempt. If we provide an instance (e.g. SayHelloActivity.new), the same
   # instance is reused.
-  activities: [ActivityWorker::SayHelloActivity],
-  workflow_executor: Temporalio::Worker::WorkflowExecutor::ThreadPool.default
+  activities: [ActivityWorker::SayHelloActivity]
 )
 
 # Run the worker until SIGINT

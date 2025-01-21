@@ -25,8 +25,7 @@ module ActivitySimple
           client: env.client,
           task_queue: "tq-#{SecureRandom.uuid}",
           activities: [MockSelectFromDatabase, MyActivities::AppendSuffix],
-          workflows: [MyWorkflow],
-          workflow_executor: Temporalio::Worker::WorkflowExecutor::ThreadPool.default
+          workflows: [MyWorkflow]
         )
         worker.run do
           # Run workflow
