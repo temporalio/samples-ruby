@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'temporalio', path: '../temporal-sdk-ruby/temporalio'
+gem 'temporalio'
 
 group :development do
   gem 'minitest'
