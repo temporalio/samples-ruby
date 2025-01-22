@@ -11,7 +11,7 @@ until the SDK is marked stable.
 
 Prerequisites:
 
-* Ruby 3.1+
+* Ruby 3.2+
 * Local Temporal server running (can [install CLI](https://docs.temporal.io/cli#install) then
   [run a dev server](https://docs.temporal.io/cli#start-dev-server))
 * `bundle install` run in the root
@@ -19,7 +19,11 @@ Prerequisites:
 ## Samples
 
 <!-- Keep this list in alphabetical order -->
+* [activity_simple](activity_simple) - Simple workflow that calls two activities.
 * [activity_worker](activity_worker) - Use Ruby activities from a workflow in another language.
+* [context_propagation](context_propagation) - Use interceptors to propagate thread/fiber local data from clients
+  through workflows/activities.
+* [message_passing_simple](message_passing_simple) - Simple workflow that accepts signals, queries, and updates.
 
 ## Development
 

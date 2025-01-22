@@ -1,4 +1,46 @@
 AllCops:
   NewCops: enable
-  TargetRubyVersion: 3.1
+  TargetRubyVersion: 3.2
   SuggestExtensions: false
+
+# Don't need super for activities or workflows
+Lint/MissingSuper:
+  AllowedParentClasses:
+    - Temporalio::Activity::Definition
+    - Temporalio::Workflow::Definition
+
+# The default is too small and triggers simply setting lots of values on a proto
+Metrics/AbcSize:
+  Max: 200
+
+# The default is too small
+Metrics/BlockLength:
+  Max: 100
+
+# The default is too small
+Metrics/ClassLength:
+  Max: 1000
+
+# The default is too small
+Metrics/CyclomaticComplexity:
+  Max: 100
+
+# The default is too small
+Metrics/MethodLength:
+  Max: 100
+
+# The default is too small
+Metrics/ModuleLength:
+  Max: 1000
+
+# The default is too small
+Metrics/PerceivedComplexity:
+  Max: 40
+
+# Don't need API docs for samples
+Style/Documentation:
+  Enabled: false
+
+# Don't need API docs for samples
+Style/DocumentationMethod:
+  Enabled: false

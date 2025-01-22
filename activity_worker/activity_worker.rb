@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'activity'
+require_relative 'say_hello_activity'
 require 'temporalio/client'
 require 'temporalio/worker'
 
