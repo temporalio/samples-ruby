@@ -2,7 +2,12 @@
 
 source 'https://rubygems.org'
 
-gem 'temporalio'
+# Primary Temporal dependency
+gem 'temporalio', path: '../temporal-sdk-ruby/temporalio'
+
+# Additional dependencies for certain samples
+gem 'google-protobuf', '~> 3.25'
+gem 'temporal-ruby', path: '../coinbase-temporal-ruby'
 
 group :development do
   gem 'minitest'
