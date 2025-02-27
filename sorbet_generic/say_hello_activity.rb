@@ -4,7 +4,7 @@
 require 'sorbet-runtime'
 require 'temporalio/activity'
 
-module SorbetTyping
+module SorbetGeneric
   class SayHelloActivity < Temporalio::Activity::Definition
     extend T::Sig
     extend T::Generic

@@ -24,7 +24,7 @@ Prerequisites:
 * [context_propagation](context_propagation) - Use interceptors to propagate thread/fiber local data from clients
   through workflows/activities.
 * [message_passing_simple](message_passing_simple) - Simple workflow that accepts signals, queries, and updates.
-* [sorbet_typing](sorbet_typing) - Proof of concept of how to do advanced Sorbet typing with the SDK.
+* [sorbet_generic](sorbet_generic) - Proof of concept of how to do _advanced_ Sorbet typing with the SDK.
 
 ## Development
 

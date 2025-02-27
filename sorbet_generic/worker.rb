@@ -18,8 +18,8 @@ client = Temporalio::Client.connect(
 worker = Temporalio::Worker.new(
   client:,
   task_queue: 'sorbet-typing-sample',
-  activities: [SorbetTyping::SayHelloActivity],
-  workflows: [SorbetTyping::SayHelloWorkflow]
+  activities: [SorbetGeneric::SayHelloActivity],
+  workflows: [SorbetGeneric::SayHelloWorkflow]
 )
 
 # Run the worker until SIGINT

@@ -1,8 +1,13 @@
-# Sorbet Typing
+# Sorbet Generic
 
-This sample shows a proof of concept on how to use advanced Sorbet features like generics for activities, workflows,
-signals, queries, and updates. The Temporal Ruby SDK does not have Sorbet signatures natively, so this is just a proof
-of concept on how Sorbet users could consume the library. See the "Issues" section for details on issues encountered.
+This sample shows a proof of concept on how to use advanced Sorbet generics for activities, workflows, signals, queries,
+and updates. The Temporal Ruby SDK does not have Sorbet signatures natively, so this is just a proof of concept on how
+Sorbet users could consume the library if they have advanced needs.
+
+⚠️ Users that are not concerned with advanced generic use cases can just use traditional `tapioca` generation to
+generate the RBI files for Temporal Ruby SDK. This sample is only here to demonstrate **advanced generic use cases**.
+
+See the "Issues" section for details on issues encountered during development.
 
 To run, first see [README.md](../README.md) for prerequisites. Then, in this directory:
 

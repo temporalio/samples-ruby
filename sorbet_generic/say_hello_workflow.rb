@@ -5,7 +5,7 @@ require 'sorbet-runtime'
 require 'temporalio/workflow'
 require_relative 'say_hello_activity'
 
-module SorbetTyping
+module SorbetGeneric
   class SayHelloWorkflow < Temporalio::Workflow::Definition
     extend T::Sig
     extend T::Generic
