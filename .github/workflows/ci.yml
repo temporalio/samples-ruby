@@ -31,7 +31,7 @@ jobs:
         run: bundle exec rake TESTOPTS="--verbose"
 
       - name: Type check Sorbet sample
-        working-directory: sorbet_typing
+        working-directory: sorbet_generic
         run: |
           bundle install
           bundle exec srb tc
