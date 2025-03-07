@@ -21,6 +21,8 @@ Prerequisites:
 <!-- Keep this list in alphabetical order -->
 * [activity_simple](activity_simple) - Simple workflow that calls two activities.
 * [activity_worker](activity_worker) - Use Ruby activities from a workflow in another language.
+* [coinbase_ruby](coinbase_ruby) - Demonstrate interoperability with the
+  [Coinbase Ruby SDK](https://github.com/coinbase/temporal-ruby).
 * [context_propagation](context_propagation) - Use interceptors to propagate thread/fiber local data from clients
   through workflows/activities.
 * [message_passing_simple](message_passing_simple) - Simple workflow that accepts signals, queries, and updates.
