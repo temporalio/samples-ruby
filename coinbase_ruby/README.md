@@ -5,6 +5,10 @@ able to interoperate with a workflow, activity, and client from Temporal Ruby SD
 activity in both SDKs, a workflow in both SDKs each calling both activities, a worker in both SDKs running in the same
 process, and a starter with clients from each SDK each invoking both workflows.
 
+⚠️ NOTE - this requires disabling the loading of protos from the Coinbase Ruby SDK. As of this writing,
+https://github.com/coinbase/temporal-ruby/pull/335 is not merged, so the Gemfile depends on the branch at
+https://github.com/cretz/coinbase-temporal-ruby/tree/disable-proto-load-option for now.
+
 To run, first see [README.md](../README.md) for prerequisites. Then, in another terminal, start the Ruby worker
 from this directory:
 
