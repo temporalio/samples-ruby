@@ -10,7 +10,7 @@ from this directory:
 
     bundle exec ruby worker.rb
 
-Finally in another terminal, use the Ruby client to the workflow from this directory:
+Finally in another terminal, use the Ruby client to run the workflow from this directory:
 
     bundle exec ruby starter.rb
 
