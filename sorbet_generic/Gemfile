@@ -1,0 +1,12 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+
+# Temporal dependency
+gem 'temporalio'
+
+# Sorbet dependencies
+gem 'sorbet', group: :development
+gem 'sorbet-runtime'
+gem 'tapioca', require: false, group: %i[development test]
+gem 'yard', group: :development
