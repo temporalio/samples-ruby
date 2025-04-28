@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'temporal-ruby'
 require_relative 'coinbase_activity'
 
