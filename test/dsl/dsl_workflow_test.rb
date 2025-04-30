@@ -4,9 +4,9 @@ require 'minitest/autorun'
 require 'securerandom'
 require 'temporalio/testing'
 require 'temporalio/worker'
-require_relative '../../dsl/dsl_workflow'
-require_relative '../../dsl/dsl_models'
-require_relative '../../dsl/activities'
+require 'dsl/dsl_workflow'
+require 'dsl/dsl_models'
+require 'dsl/activities'
 
 module Dsl
   class DslWorkflowTest < Minitest::Test
