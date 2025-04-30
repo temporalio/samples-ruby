@@ -48,7 +48,8 @@ module WorkerSpecificTaskQueues
         unique_worker = Temporalio::Worker.new(
           client: env.client,
           task_queue: unique_task_queue,
-          activities: [WorkerSpecificActivities::DownloadFileActivity, WorkerSpecificActivities::WorkOnFileActivity, WorkerSpecificActivities::CleanupFileActivity],
+          activities: [WorkerSpecificActivities::DownloadFileActivity, WorkerSpecificActivities::WorkOnFileActivity,
+                       WorkerSpecificActivities::CleanupFileActivity]
         )
 
         # Run worker until completion of the block
@@ -61,7 +62,8 @@ module WorkerSpecificTaskQueues
         unique_worker.run do
           worker.run do
             # Run workflow
-            env.client.execute_workflow(WorkerSpecificTaskQueues::FileProcessingWorkflow, 2, id: "wf-#{SecureRandom.uuid}", task_queue: worker.task_queue)
+            env.client.execute_workflow(WorkerSpecificTaskQueues::FileProcessingWorkflow, 2,
+                                        id: "wf-#{SecureRandom.uuid}", task_queue: worker.task_queue)
           end
         end
       end
