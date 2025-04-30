@@ -52,22 +52,15 @@ end
 puts "Connecting to Temporal Server at #{options[:target_host]} with mTLS..."
 puts "Using namespace: #{options[:namespace]}"
 
-# Create client with mTLS configuration
-tls_options = Temporalio::Client::Connection::TLSOptions.new(
-  client_cert: File.read(options[:client_cert]),
-  client_private_key: File.read(options[:client_key])
-)
-
-# Add server root CA cert if provided
-if options[:server_root_ca_cert]
-  tls_options = tls_options.with(server_root_ca_cert: File.read(options[:server_root_ca_cert]))
-end
-
 # Connect to Temporal server
 client = Temporalio::Client.connect(
   options[:target_host],
   options[:namespace],
-  tls: tls_options
+  tls: Temporalio::Client::Connection::TLSOptions.new(
+    client_cert: File.read(options[:client_cert]),
+    client_private_key: File.read(options[:client_key]),
+    server_root_ca_cert: File.read(options[:server_root_ca_cert]) if options[:server_root_ca_cert]
+  )
 )
 
 # Execute the workflow
