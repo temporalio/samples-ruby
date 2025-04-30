@@ -31,6 +31,8 @@ begin
   # Wait for result (which will fail with cancellation)
   result = handle.result
   puts "Workflow completed with result: #{result}"
-rescue Temporalio::Error::CanceledError
+rescue Temporalio::Error::WorkflowFailedError => e
+  raise unless e.cause.is_a?(Temporalio::Error::CanceledError)
+
   puts 'Workflow was successfully cancelled'
 end
