@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative 'my_activities'
-require_relative 'my_workflow'
+require_relative 'activities'
+require_relative 'greeting_workflow'
 require 'optparse'
 require 'temporalio/client'
 require 'temporalio/worker'

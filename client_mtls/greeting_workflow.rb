@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'my_activities'
+require_relative 'activities'
 require 'temporalio/workflow'
 
 module ClientMtls

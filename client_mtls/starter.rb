@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'my_workflow'
+require_relative 'greeting_workflow'
 require 'optparse'
 require 'temporalio/client'
 
@@ -43,7 +43,7 @@ OptionParser.new do |opts|
 end.parse!
 
 # Check for required certificates for mTLS
-if options[:client_cert].nil? || options[:client_key].nil?
+unless options[:client_cert] && options[:client_key]
   puts 'Error: Client certificate and key are required for mTLS'
   puts 'Usage: ruby starter.rb --client-cert PATH --client-key PATH'
   exit 1
