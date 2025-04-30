@@ -4,7 +4,7 @@ This sample demonstrates how to use mutual TLS (mTLS) authentication with the Te
 
 ## Overview
 
-mTLS (mutual Transport Layer Security) provides secure, encrypted communication where both client and server authenticate each other. This is required to connect to Temporal Cloud, or to a self-hosted Temporal deployment that is secured with TLS.
+mTLS (mutual Transport Layer Security) provides secure, encrypted communication where both client and server authenticate each other. This is one way to connect to Temporal Cloud, or to a self-hosted Temporal deployment that is secured with TLS.
 
 The sample includes:
 
