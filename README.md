@@ -19,6 +19,7 @@ Prerequisites:
 ## Samples
 
 <!-- Keep this list in alphabetical order -->
+* [activity_heartbeating](activity_heartbeating) - Demonstrate activity heartbeating and proper cancellation handling.
 * [activity_simple](activity_simple) - Simple workflow that calls two activities.
 * [activity_worker](activity_worker) - Use Ruby activities from a workflow in another language.
 * [coinbase_ruby](coinbase_ruby) - Demonstrate interoperability with the
