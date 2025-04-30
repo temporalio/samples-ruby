@@ -22,7 +22,8 @@ module ClientMtls
           # Run workflow
           assert_equal(
             'Hello, World!',
-            env.client.execute_workflow(GreetingWorkflow, 'World', id: "wf-#{SecureRandom.uuid}", task_queue: worker.task_queue)
+            env.client.execute_workflow(GreetingWorkflow, 'World', id: "wf-#{SecureRandom.uuid}",
+                                                                   task_queue: worker.task_queue)
           )
         end
       end

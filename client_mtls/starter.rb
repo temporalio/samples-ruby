@@ -59,7 +59,7 @@ client = Temporalio::Client.connect(
   tls: Temporalio::Client::Connection::TLSOptions.new(
     client_cert: File.read(options[:client_cert]),
     client_private_key: File.read(options[:client_key]),
-    server_root_ca_cert: File.read(options[:server_root_ca_cert]) if options[:server_root_ca_cert]
+    server_root_ca_cert: options[:server_root_ca_cert] && File.read(options[:server_root_ca_cert])
   )
 )
 
