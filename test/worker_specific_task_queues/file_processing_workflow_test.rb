@@ -8,7 +8,7 @@ require 'temporalio/testing'
 require 'temporalio/worker'
 
 module WorkerSpecificTaskQueues
-  module WorkerSpecificActivities
+  class FileProcessingWorkflowTest < Test
     class DownloadFileActivity < Temporalio::Activity::Definition
       def execute(url)
         url
@@ -38,9 +38,7 @@ module WorkerSpecificTaskQueues
         nil
       end
     end
-  end
 
-  class FileProcessingWorkflowTest < Test
     def test_workflow
       # Run test server until completion of the block
       Temporalio::Testing::WorkflowEnvironment.start_local do |env|

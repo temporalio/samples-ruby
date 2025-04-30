@@ -14,10 +14,11 @@ module WorkerSpecificTaskQueues
         # Simulate slow activity
         sleep(3)
 
-        file = Tempfile.new
+        file = Tempfile.create
 
         Temporalio::Activity::Context.current.logger.info("Downloading #{url} to #{file.path}")
         file.write(Net::HTTP.get(URI(url)))
+        file.close
 
         file.path
       end
