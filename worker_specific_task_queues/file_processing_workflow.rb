@@ -35,14 +35,13 @@ module WorkerSpecificTaskQueues
     def process_file
       # Get a unique task queue from any worker
       unique_worker_task_queue = Temporalio::Workflow.execute_activity(
-        Activities::GetUniqueTaskQueueActivity,
-        nil,
+        NormalActivities::GetUniqueTaskQueueActivity,
         start_to_close_timeout: 60
       )
 
       # Download the file on the specific worker
       download_path = Temporalio::Workflow.execute_activity(
-        Activities::DownloadFileActivity,
+        WorkerSpecificActivities::DownloadFileActivity,
         'https://temporal.io',
         task_queue: unique_worker_task_queue,
         schedule_to_close_timeout: 300,
@@ -51,7 +50,7 @@ module WorkerSpecificTaskQueues
 
       # Process the file on the same worker
       Temporalio::Workflow.execute_activity(
-        Activities::WorkOnFileActivity,
+        WorkerSpecificActivities::WorkOnFileActivity,
         download_path,
         task_queue: unique_worker_task_queue,
         schedule_to_close_timeout: 300,
@@ -60,7 +59,7 @@ module WorkerSpecificTaskQueues
 
       # Clean up the file on the same worker
       Temporalio::Workflow.execute_activity(
-        Activities::CleanupFileActivity,
+        WorkerSpecificActivities::CleanupFileActivity,
         download_path,
         task_queue: unique_worker_task_queue,
         schedule_to_close_timeout: 300,

@@ -8,21 +8,18 @@ require 'temporalio/activity'
 require 'uri'
 
 module WorkerSpecificTaskQueues
-  module Activities
+  module WorkerSpecificActivities
     class DownloadFileActivity < Temporalio::Activity::Definition
       def execute(url)
         # Simulate slow activity
         sleep(3)
 
-        # Download file using block syntax for automatic cleanup
-        temp_path = nil
-        Tempfile.open do |file|
-          Temporalio::Activity::Context.current.logger.info("Downloading #{url} to #{file.path}")
-          file.write(Net::HTTP.get(URI(url)))
-          temp_path = file.path
-        end
+        file = Tempfile.new
 
-        temp_path
+        Temporalio::Activity::Context.current.logger.info("Downloading #{url} to #{file.path}")
+        file.write(Net::HTTP.get(URI(url)))
+
+        file.path
       end
     end
 

@@ -25,7 +25,7 @@ shared_worker = Temporalio::Worker.new(
   workflows: [WorkerSpecificTaskQueues::FileProcessingWorkflow],
   activities: [
     # Pass the unique task queue to the activity so it can return it when called
-    WorkerSpecificTaskQueues::Activities::GetUniqueTaskQueueActivity.new(unique_task_queue)
+    WorkerSpecificTaskQueues::NormalActivities::GetUniqueTaskQueueActivity.new(unique_task_queue)
   ]
 )
 
@@ -34,9 +34,9 @@ unique_worker = Temporalio::Worker.new(
   client: client,
   task_queue: unique_task_queue,
   activities: [
-    WorkerSpecificTaskQueues::Activities::DownloadFileActivity.new,
-    WorkerSpecificTaskQueues::Activities::WorkOnFileActivity.new,
-    WorkerSpecificTaskQueues::Activities::CleanupFileActivity.new
+    WorkerSpecificTaskQueues::WorkerSpecificActivities::DownloadFileActivity.new,
+    WorkerSpecificTaskQueues::WorkerSpecificActivities::WorkOnFileActivity.new,
+    WorkerSpecificTaskQueues::WorkerSpecificActivities::CleanupFileActivity.new
   ]
 )
 
