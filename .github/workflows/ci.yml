@@ -35,3 +35,11 @@ jobs:
         run: |
           bundle install
           bundle exec srb tc
+
+      - name: Lint and test Rails app
+        working-directory: rails_app
+        run: |
+          bundle install
+          bin/rails db:migrate
+          bin/rails db:seed
+          bundle exec rake
