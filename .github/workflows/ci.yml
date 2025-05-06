@@ -38,6 +38,8 @@ jobs:
 
       - name: Lint and test Rails app
         working-directory: rails_app
+        env:
+          NO_EAGER_TEMPORAL_CLIENT: 1
         run: |
           bundle install
           bin/rails db:migrate
