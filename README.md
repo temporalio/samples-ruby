@@ -21,6 +21,7 @@ Prerequisites:
 <!-- Keep this list in alphabetical order -->
 * [activity_simple](activity_simple) - Simple workflow that calls two activities.
 * [activity_worker](activity_worker) - Use Ruby activities from a workflow in another language.
+* [client_mtls](client_mtls) - Demonstrates how to use mutual TLS (mTLS) authentication with the Temporal Ruby SDK.
 * [coinbase_ruby](coinbase_ruby) - Demonstrate interoperability with the
   [Coinbase Ruby SDK](https://github.com/coinbase/temporal-ruby).
 * [context_propagation](context_propagation) - Use interceptors to propagate thread/fiber local data from clients
@@ -28,6 +29,7 @@ Prerequisites:
 * [message_passing_simple](message_passing_simple) - Simple workflow that accepts signals, queries, and updates.
 * [rails_app](rails_app) - Basic Rails API application using Temporal workflows and activities.
 * [sorbet_generic](sorbet_generic) - Proof of concept of how to do _advanced_ Sorbet typing with the SDK.
+* [worker_specific_task_queues](worker_specific_task_queues) - Use a unique Task Queue for each Worker to run a sequence of Activities on the same Worker.
 
 ## Development
 
