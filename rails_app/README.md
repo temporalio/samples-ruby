@@ -62,8 +62,8 @@ This is powered by a Temporal workflow. Getting the cart and total are simply wo
 
 The workflow can be seen in the UI. If using the local dev server with defaults,
 http://localhost:8233/namespaces/default/workflows/shopping-cart-my-user-id will show this cart. Notice how there is an
-`add_cart_entry` workflow update the product we added and it had to fetch the product details from the database via an
-activity. Can even use the "Queries" tab to fetch the current cart or total.
+`add_cart_entry` workflow update for the product we added and it had to fetch the product details from the database via
+an activity. Can even use the "Queries" tab to fetch the current cart or total.
 
 Now lets remove the 3 scooters, add just 1 scooter, and 2 TVs:
 

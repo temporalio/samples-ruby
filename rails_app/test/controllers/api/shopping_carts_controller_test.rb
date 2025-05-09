@@ -91,6 +91,7 @@ module API
         10.times do |i|
           get "/api/shopping_carts/#{user_id}"
           assert_response :not_found
+          break
         rescue Minitest::Assertion
           raise if i == 9
           sleep(0.3)
