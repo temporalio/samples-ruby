@@ -2,6 +2,9 @@ AllCops:
   NewCops: enable
   TargetRubyVersion: 3.2
   SuggestExtensions: false
+  # Rails has a different rubocop expectation
+  Exclude:
+    - 'rails_app/**/*'
 
 # Don't need super for activities or workflows
 Lint/MissingSuper:
