@@ -27,6 +27,7 @@ Prerequisites:
   [Coinbase Ruby SDK](https://github.com/coinbase/temporal-ruby).
 * [context_propagation](context_propagation) - Use interceptors to propagate thread/fiber local data from clients
   through workflows/activities.
+* [dsl](dsl) - Execute workflows defined in a YAML-based domain-specific language.
 * [message_passing_simple](message_passing_simple) - Simple workflow that accepts signals, queries, and updates.
 * [sorbet_generic](sorbet_generic) - Proof of concept of how to do _advanced_ Sorbet typing with the SDK.
 * [worker_specific_task_queues](worker_specific_task_queues) - Use a unique Task Queue for each Worker to run a sequence of Activities on the same Worker.
