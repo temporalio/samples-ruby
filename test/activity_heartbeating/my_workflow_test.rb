@@ -7,7 +7,7 @@ require 'temporalio/testing'
 require 'temporalio/worker'
 
 module ActivityHeartbeating
-  class ActivityHeartbeatingTest < Test
+  class MyWorkflowTest < Test
     def test_workflow
       # Run test server until completion of the block
       Temporalio::Testing::WorkflowEnvironment.start_local do |env|

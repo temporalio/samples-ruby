@@ -7,7 +7,7 @@ require 'temporalio/testing'
 require 'temporalio/worker'
 
 module ActivitySimple
-  class ActivitySimpleTest < Test
+  class MyWorkflowTest < Test
     # Demonstrates mocking out activities
     class MockSelectFromDatabase < Temporalio::Activity::Definition
       activity_name :SelectFromDatabase
