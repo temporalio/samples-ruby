@@ -22,6 +22,9 @@ module ActivityHeartbeating
           # Start workflow
           wf = env.client.start_workflow(MyWorkflow, id: "wf-#{SecureRandom.uuid}", task_queue: worker.task_queue)
 
+          # Wait for activity to be scheduled
+          sleep 0.3 until wf.describe.raw_description.pending_activities.any?
+
           # Cancel workflow
           wf.cancel
 
