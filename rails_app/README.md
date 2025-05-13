@@ -71,7 +71,7 @@ Now lets remove the 3 scooters, add just 1 scooter, and 2 TVs:
     curl -X POST http://127.0.0.1:3000/api/shopping_carts/my-user-id/entries \
          -H "Content-Type: application/json" -d '{ "sku": "1234", "quantity": 1 }'
     curl -X POST http://127.0.0.1:3000/api/shopping_carts/my-user-id/entries \
-         -H "Content-Type: application/json" -d '{ "sku": "2345", "quantity": 21 }'
+         -H "Content-Type: application/json" -d '{ "sku": "2345", "quantity": 2 }'
 
 The workflow history in the UI clearly shows the removal and addition of cart items. All of this state is in Temporal,
 there is nothing stored in the database at this time. To complete this cart, call checkout with a payment ID:
