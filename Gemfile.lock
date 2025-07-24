@@ -14,7 +14,24 @@ GEM
     ast (2.4.2)
     base64 (0.2.0)
     bigdecimal (3.1.9)
-    google-protobuf (3.25.7)
+    google-protobuf (4.31.1)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.31.1-aarch64-linux-gnu)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.31.1-arm64-darwin)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.31.1-x86-linux-gnu)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.31.1-x86_64-darwin)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.31.1-x86_64-linux-gnu)
+      bigdecimal
+      rake (>= 13)
     googleapis-common-protos-types (1.19.0)
       google-protobuf (>= 3.18, < 5.a)
     grpc (1.71.0)
@@ -64,19 +81,19 @@ GEM
     rubocop-ast (1.37.0)
       parser (>= 3.3.1.0)
     ruby-progressbar (1.13.0)
-    temporalio (0.4.0)
+    temporalio (0.5.0)
       google-protobuf (>= 3.25.0)
       logger
-    temporalio (0.4.0-aarch64-linux)
+    temporalio (0.5.0-aarch64-linux)
       google-protobuf (>= 3.25.0)
       logger
-    temporalio (0.4.0-arm64-darwin)
+    temporalio (0.5.0-arm64-darwin)
       google-protobuf (>= 3.25.0)
       logger
-    temporalio (0.4.0-x86_64-darwin)
+    temporalio (0.5.0-x86_64-darwin)
       google-protobuf (>= 3.25.0)
       logger
-    temporalio (0.4.0-x86_64-linux)
+    temporalio (0.5.0-x86_64-linux)
       google-protobuf (>= 3.25.0)
       logger
     unicode-display_width (3.1.4)
