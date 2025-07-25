@@ -23,4 +23,4 @@ module TestService
     "#{input['greeting']}, #{input['name']}!"
   end
   module_function :get_service_result
-end 
+end
