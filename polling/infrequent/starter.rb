@@ -9,7 +9,7 @@ client = Temporalio::Client.connect('localhost:7233', 'default')
 # Run workflow
 puts 'Executing workflow'
 result = client.execute_workflow(
-  InfrequentPolling::GreetingWorkflow,
+  Polling::Infrequent::GreetingWorkflow,
   'World',
   id: "infrequent-polling-sample-workflow-id-#{Time.now.to_i}",
   task_queue: 'infrequent-polling-sample'

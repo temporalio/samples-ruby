@@ -11,8 +11,8 @@ client = Temporalio::Client.connect('localhost:7233', 'default')
 worker = Temporalio::Worker.new(
   client:,
   task_queue: 'infrequent-polling-sample',
-  workflows: [InfrequentPolling::GreetingWorkflow],
-  activities: [InfrequentPolling::ComposeGreetingActivity]
+  workflows: [Polling::Infrequent::GreetingWorkflow],
+  activities: [Polling::Infrequent::ComposeGreetingActivity]
 )
 
 puts 'Starting worker (ctrl+c to exit)'

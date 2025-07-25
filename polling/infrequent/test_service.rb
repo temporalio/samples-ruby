@@ -1,26 +1,26 @@
 # frozen_string_literal: true
 
-require 'temporalio/activity'
+module Polling
+  module Infrequent
+    # A mock external service with simulated errors.
+    module TestService
+      class TestServiceError < StandardError; end
 
-# A mock external service with simulated errors.
-module TestService
-  class TestServiceError < StandardError; end
+      @attempts = Hash.new(0)
+      ERROR_ATTEMPTS = 5
 
-  @attempts = Hash.new(0)
-  ERROR_ATTEMPTS = 5
+      def get_service_result(input, activity_info)
+        workflow_id = activity_info.workflow_id
+        @attempts[workflow_id] ||= 0
+        @attempts[workflow_id] += 1
 
-  ComposeGreetingInput = Struct.new(:greeting, :name)
+        puts "Attempt #{@attempts[workflow_id]} of #{ERROR_ATTEMPTS} to invoke service"
 
-  def get_service_result(input, activity_info)
-    workflow_id = activity_info.workflow_id
-    @attempts[workflow_id] ||= 0
-    @attempts[workflow_id] += 1
+        raise TestServiceError, 'service is down' unless @attempts[workflow_id] == ERROR_ATTEMPTS
 
-    puts "Attempt #{@attempts[workflow_id]} of #{ERROR_ATTEMPTS} to invoke service"
-
-    raise TestServiceError, 'service is down' unless @attempts[workflow_id] == ERROR_ATTEMPTS
-
-    "#{input['greeting']}, #{input['name']}!"
+        "#{input['greeting']}, #{input['name']}!"
+      end
+      module_function :get_service_result
+    end
   end
-  module_function :get_service_result
 end

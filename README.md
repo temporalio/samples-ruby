@@ -31,6 +31,7 @@ Prerequisites:
 * [rails_app](rails_app) - Basic Rails API application using Temporal workflows and activities.
 * [sorbet_generic](sorbet_generic) - Proof of concept of how to do _advanced_ Sorbet typing with the SDK.
 * [worker_specific_task_queues](worker_specific_task_queues) - Use a unique Task Queue for each Worker to run a sequence of Activities on the same Worker.
+* [polling/infrequent](polling/infrequent/) - implement an infrequent polling mechanism using Temporal's automatic Activity Retry feature
 
 ## Development
 
