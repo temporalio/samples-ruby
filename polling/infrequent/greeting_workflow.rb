@@ -2,7 +2,6 @@
 
 require 'temporalio/workflow'
 require_relative 'compose_greeting_activity'
-require_relative 'test_service'
 
 module Polling
   module Infrequent
