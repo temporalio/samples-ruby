@@ -14,20 +14,20 @@ This sample shows a workflow that calls an activity. The activity simulates a se
 
 1.  **Start the Worker:**
 
-    Open a terminal and run the following command to start the worker process. The worker will listen for tasks on the `infrequent-activity-retry-task-queue`.
+    Open a terminal and run the following command to start the worker process. The worker will listen for tasks on the `infrequent-polling-sample` task queue.
 
     ```bash
-    ruby polling/infrequent/worker.rb
+    bundle exec ruby polling/infrequent/worker.rb
     ```
 
-    You will see the worker log messages indicating it is attempting to run the activity. It will try several times, with a 10-second delay between each attempt.
+    You will see the worker log messages indicating it is attempting to run the activity. It will try several times, with a 60-second delay between each attempt.
 
 2.  **Start the Workflow:**
 
     In a separate terminal, run this command to start the workflow. This script will start the workflow and wait for its completion, printing the final result.
 
     ```bash
-    ruby polling/infrequent/starter.rb
+    bundle exec ruby polling/infrequent/starter.rb
     ```
 
-After about 40 seconds (4 failed attempts with a 10s delay), the service will succeed. You will see the final result printed in the starter's terminal, and the worker will log the successful completion. 
+After about 4 minutes (4 failed attempts with a 60s delay), the service will succeed. You will see the final result printed in the starter's terminal, and the worker will log the successful completion. 

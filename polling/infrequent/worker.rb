@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'greeting_workflow'
 require_relative 'compose_greeting_activity'
 require 'temporalio/client'
@@ -10,7 +12,7 @@ worker = Temporalio::Worker.new(
   client:,
   task_queue: 'infrequent-polling-sample',
   workflows: [InfrequentPolling::GreetingWorkflow],
-  activities: [ComposeGreetingActivity]
+  activities: [InfrequentPolling::ComposeGreetingActivity]
 )
 
 puts 'Starting worker (ctrl+c to exit)'
