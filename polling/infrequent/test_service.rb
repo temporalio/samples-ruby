@@ -18,11 +18,9 @@ module TestService
 
     puts "Attempt #{@attempts[workflow_id]} of #{ERROR_ATTEMPTS} to invoke service"
 
-    if @attempts[workflow_id] == ERROR_ATTEMPTS
-      "#{input['greeting']}, #{input['name']}!"
-    else
-      raise TestServiceError, 'service is down'
-    end
+    raise TestServiceError, 'service is down' unless @attempts[workflow_id] == ERROR_ATTEMPTS
+
+    "#{input['greeting']}, #{input['name']}!"
   end
   module_function :get_service_result
 end 

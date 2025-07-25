@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require 'temporalio/workflow'
-require_relative './compose_greeting_activity'
-require_relative './test_service'
+require_relative 'compose_greeting_activity'
+require_relative 'test_service'
 
 module InfrequentPolling
   class GreetingWorkflow < Temporalio::Workflow::Definition
