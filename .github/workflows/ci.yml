@@ -25,7 +25,9 @@ jobs:
           ruby-version: ${{ matrix.rubyVersion }}
 
       - name: Install bundle
-        run: bundle install
+        run: |
+          bundle config set path /tmp/bundle-dir
+          bundle install
 
       - name: Lint and test
         run: bundle exec rake TESTOPTS="--verbose"
