@@ -27,6 +27,7 @@ Prerequisites:
   [Coinbase Ruby SDK](https://github.com/coinbase/temporal-ruby).
 * [context_propagation](context_propagation) - Use interceptors to propagate thread/fiber local data from clients
   through workflows/activities.
+* [encryption](encryption) - Demonstrates how to make a codec for end-to-end encryption.
 * [message_passing_simple](message_passing_simple) - Simple workflow that accepts signals, queries, and updates.
 * [polling/infrequent](polling/infrequent) - Implement an infrequent polling mechanism using Temporal's automatic Activity Retry feature.
 * [rails_app](rails_app) - Basic Rails API application using Temporal workflows and activities.

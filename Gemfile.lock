@@ -56,6 +56,9 @@ GEM
     language_server-protocol (3.17.0.3)
     logger (1.7.0)
     minitest (5.25.4)
+    mustermann (3.0.4)
+      ruby2_keywords (~> 0.0.1)
+    nio4r (2.7.4)
     oj (3.16.10)
       bigdecimal (>= 3.0)
       ostruct (>= 0.2)
@@ -64,7 +67,19 @@ GEM
     parser (3.3.6.0)
       ast (~> 2.4.1)
       racc
+    puma (7.0.0)
+      nio4r (~> 2.0)
     racc (1.8.1)
+    rack (3.2.1)
+    rack-protection (4.1.1)
+      base64 (>= 0.1.0)
+      logger (>= 1.6.0)
+      rack (>= 3.0.0, < 4)
+    rack-session (2.1.1)
+      base64 (>= 0.1.0)
+      rack (>= 3.0.0)
+    rackup (2.2.1)
+      rack (>= 3)
     rainbow (3.1.1)
     rake (13.3.0)
     regexp_parser (2.10.0)
@@ -81,6 +96,14 @@ GEM
     rubocop-ast (1.37.0)
       parser (>= 3.3.1.0)
     ruby-progressbar (1.13.0)
+    ruby2_keywords (0.0.5)
+    sinatra (4.1.1)
+      logger (>= 1.6.0)
+      mustermann (~> 3.0)
+      rack (>= 3.0.0, < 4)
+      rack-protection (= 4.1.1)
+      rack-session (>= 2.0.0, < 3)
+      tilt (~> 2.0)
     temporalio (0.6.0)
       google-protobuf (>= 3.25.0)
       logger
@@ -96,6 +119,7 @@ GEM
     temporalio (0.6.0-x86_64-linux)
       google-protobuf (>= 3.25.0)
       logger
+    tilt (2.6.1)
     unicode-display_width (3.1.4)
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
@@ -110,8 +134,11 @@ PLATFORMS
 
 DEPENDENCIES
   minitest
+  puma
+  rackup
   rake
   rubocop
+  sinatra
   temporal-ruby!
   temporalio
 
