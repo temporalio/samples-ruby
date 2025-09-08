@@ -31,6 +31,7 @@ Prerequisites:
 * [message_passing_simple](message_passing_simple) - Simple workflow that accepts signals, queries, and updates.
 * [polling/infrequent](polling/infrequent) - Implement an infrequent polling mechanism using Temporal's automatic Activity Retry feature.
 * [rails_app](rails_app) - Basic Rails API application using Temporal workflows and activities.
+* [saga](saga) - Using undo/compensation using a very simplistic Saga pattern.
 * [sorbet_generic](sorbet_generic) - Proof of concept of how to do _advanced_ Sorbet typing with the SDK.
 * [worker_specific_task_queues](worker_specific_task_queues) - Use a unique Task Queue for each Worker to run a sequence of Activities on the same Worker.
 
