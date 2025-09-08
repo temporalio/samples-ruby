@@ -8,7 +8,7 @@ terminal, start the Ruby worker from this directory:
 
     bundle exec ruby worker.rb
 
-Finally in another terminal, use the Ruby client to the workflow from this directory:
+Then, in another terminal, use the Ruby client to the workflow from this directory:
 
     bundle exec ruby starter.rb
 
