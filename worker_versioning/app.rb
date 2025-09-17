@@ -13,7 +13,7 @@ def main
   client = Temporalio::Client.connect(
     'localhost:7233',
     'default',
-    logger: logger
+    logger:
   )
 
   # Wait for v1 worker and set as current version
@@ -28,16 +28,16 @@ def main
   # them, we're demonstrating that the client remains version-agnostic.
   auto_upgrade_workflow_id = "worker-versioning-versioning-autoupgrade_#{SecureRandom.uuid}"
   auto_upgrade_execution = client.start_workflow(
-    'AutoUpgrading',
+    :AutoUpgrading,
     id: auto_upgrade_workflow_id,
-    task_queue: WorkerVersioning::TASK_QUEUE
+    task_queue: WorkerVersioning::Constants::TASK_QUEUE
   )
 
   pinned_workflow_id = "worker-versioning-versioning-pinned_#{SecureRandom.uuid}"
   pinned_execution = client.start_workflow(
-    'Pinned',
+    :Pinned,
     id: pinned_workflow_id,
-    task_queue: WorkerVersioning::TASK_QUEUE
+    task_queue: WorkerVersioning::Constants::TASK_QUEUE
   )
 
   logger.info("Started auto-upgrading workflow: #{auto_upgrade_execution.id}")
@@ -67,16 +67,16 @@ def main
   # pinned workflows start on the current version.
   pinned_workflow_2_id = "worker-versioning-versioning-pinned-2_#{SecureRandom.uuid}"
   pinned_execution_v2 = client.start_workflow(
-    'Pinned',
+    :Pinned,
     id: pinned_workflow_2_id,
-    task_queue: WorkerVersioning::TASK_QUEUE
+    task_queue: WorkerVersioning::Constants::TASK_QUEUE
   )
   logger.info("Started pinned workflow v2: #{pinned_execution_v2.id}")
 
   # Now we'll conclude all workflows. You should be able to see in your server UI that the pinned
   # workflow always stayed on 1.0, while the auto-upgrading workflow migrated.
   [auto_upgrade_execution, pinned_execution, pinned_execution_v2].each do |handle|
-    handle.signal('do_next_signal', 'conclude')
+    handle.signal(:do_next_signal, 'conclude')
     handle.result
   end
 
@@ -85,22 +85,22 @@ end
 
 def advance_workflows(auto_upgrade_execution, pinned_execution)
   # Signal both workflows a few times to drive them.
-  3.times do |_i|
-    auto_upgrade_execution.signal('do_next_signal', 'do-activity')
-    pinned_execution.signal('do_next_signal', 'some-signal')
+  3.times do
+    auto_upgrade_execution.signal(:do_next_signal, 'do-activity')
+    pinned_execution.signal(:do_next_signal, 'some-signal')
   end
 end
 
 def wait_for_worker_and_make_current(client, build_id)
   target_version = Temporalio::WorkerDeploymentVersion.new(
-    deployment_name: WorkerVersioning::DEPLOYMENT_NAME,
+    deployment_name: WorkerVersioning::Constants::DEPLOYMENT_NAME,
     build_id: build_id
   )
 
   loop do
     describe_request = Temporalio::Api::WorkflowService::V1::DescribeWorkerDeploymentRequest.new(
       namespace: client.namespace,
-      deployment_name: WorkerVersioning::DEPLOYMENT_NAME
+      deployment_name: WorkerVersioning::Constants::DEPLOYMENT_NAME
     )
     response = client.workflow_service.describe_worker_deployment(describe_request)
 
@@ -120,7 +120,7 @@ def wait_for_worker_and_make_current(client, build_id)
   # Once the version is available, set it as current
   set_request = Temporalio::Api::WorkflowService::V1::SetWorkerDeploymentCurrentVersionRequest.new(
     namespace: client.namespace,
-    deployment_name: WorkerVersioning::DEPLOYMENT_NAME,
+    deployment_name: WorkerVersioning::Constants::DEPLOYMENT_NAME,
     version: target_version.to_canonical_string
   )
   client.workflow_service.set_worker_deployment_current_version(set_request)
