@@ -7,10 +7,10 @@ require 'logger'
 require 'securerandom'
 require_relative 'constants'
 
-def main
+def main(client = nil)
   logger = Logger.new($stdout, level: Logger::INFO)
 
-  client = Temporalio::Client.connect(
+  client ||= Temporalio::Client.connect(
     'localhost:7233',
     'default',
     logger:

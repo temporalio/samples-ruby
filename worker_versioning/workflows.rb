@@ -88,7 +88,7 @@ module WorkerVersioning
               # However, because we're using the patched API, this branch will never be
               # taken.
               Temporalio::Workflow.execute_activity(
-                WorkerVersioning::SomeActivity,
+                WorkerVersioning::Activities::SomeActivity,
                 'v1b',
                 start_to_close_timeout: 10
               )
@@ -131,7 +131,7 @@ module WorkerVersioning
         end
 
         Temporalio::Workflow.execute_activity(
-          WorkerVersioning::SomeActivity,
+          WorkerVersioning::Activities::SomeActivity,
           'Pinned-v1',
           start_to_close_timeout: 10
         )
@@ -158,7 +158,7 @@ module WorkerVersioning
 
         # Here we call an activity where we didn't before, which is an incompatible change.
         Temporalio::Workflow.execute_activity(
-          WorkerVersioning::SomeActivity,
+          WorkerVersioning::Activities::SomeActivity,
           'Pinned-v2',
           start_to_close_timeout: 10
         )
@@ -171,7 +171,7 @@ module WorkerVersioning
 
         # We've also changed the activity type here, another incompatible change
         Temporalio::Workflow.execute_activity(
-          WorkerVersioning::SomeIncompatibleActivity,
+          WorkerVersioning::Activities::SomeIncompatibleActivity,
           { called_by: 'Pinned-v2', more_data: 'hi' },
           start_to_close_timeout: 10
         )

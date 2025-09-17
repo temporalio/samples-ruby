@@ -9,27 +9,38 @@ require 'temporalio/worker'
 require 'temporalio/worker/deployment_options'
 require 'temporalio/worker_deployment_version'
 
-logger = Logger.new($stdout, level: Logger::INFO)
+module WorkerVersioning
+  module WorkerV1
+    def self.run_async(client)
+      worker = Temporalio::Worker.new(
+        client: client,
+        task_queue: WorkerVersioning::Constants::TASK_QUEUE,
+        workflows: [WorkerVersioning::Workflows::AutoUpgradingWorkflowV1,
+                    WorkerVersioning::Workflows::PinnedWorkflowV1],
+        activities: [WorkerVersioning::Activities::SomeActivity,
+                     WorkerVersioning::Activities::SomeIncompatibleActivity],
+        deployment_options: Temporalio::Worker::DeploymentOptions.new(
+          version: Temporalio::WorkerDeploymentVersion.new(
+            deployment_name: WorkerVersioning::Constants::DEPLOYMENT_NAME,
+            build_id: '1.0'
+          ),
+          use_worker_versioning: true
+        )
+      )
+      worker.run
+    end
+  end
+end
 
-client = Temporalio::Client.connect(
-  'localhost:7233',
-  'default',
-  logger: logger
-)
+if __FILE__ == $PROGRAM_NAME
+  logger = Logger.new($stdout, level: Logger::INFO)
 
-worker = Temporalio::Worker.new(
-  client: client,
-  task_queue: WorkerVersioning::Constants::TASK_QUEUE,
-  workflows: [WorkerVersioning::Workflows::AutoUpgradingWorkflowV1, WorkerVersioning::Workflows::PinnedWorkflowV1],
-  activities: [WorkerVersioning::Activities::SomeActivity, WorkerVersioning::Activities::SomeIncompatibleActivity],
-  deployment_options: Temporalio::Worker::DeploymentOptions.new(
-    version: Temporalio::WorkerDeploymentVersion.new(
-      deployment_name: WorkerVersioning::Constants::DEPLOYMENT_NAME,
-      build_id: '1.0'
-    ),
-    use_worker_versioning: true
+  client = Temporalio::Client.connect(
+    'localhost:7233',
+    'default',
+    logger: logger
   )
-)
 
-logger.info('Starting worker v1 (build 1.0)')
-worker.run(shutdown_signals: ['SIGINT'])
+  logger.info('Starting worker v1 (build 1.0)')
+  WorkerVersioning::WorkerV1.run_async(client)
+end
