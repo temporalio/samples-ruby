@@ -112,7 +112,10 @@ def wait_for_worker_and_make_current(client, build_id)
     break if found
 
     sleep(1)
-  rescue StandardError
+  rescue Temporalio::Error::RPCError => e
+    # If not-found, wait a second and try again
+    raise unless e.code == Temporalio::Error::RPCError::Code::NOT_FOUND
+
     sleep(1)
     next
   end
