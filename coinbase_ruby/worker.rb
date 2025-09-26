@@ -2,6 +2,7 @@
 
 # We must require Temporal SDK first and set the env var to prevent Coinbase SDK from trying to load its protos
 require 'temporalio/client'
+require 'temporalio/env_config'
 require 'temporalio/worker'
 ENV['COINBASE_TEMPORAL_RUBY_DISABLE_PROTO_LOAD'] = '1'
 
@@ -13,12 +14,13 @@ require 'logger'
 require 'temporal-ruby'
 require 'temporal/worker'
 
+# Load config and apply defaults
+positional_args, keyword_args = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
+positional_args = ['localhost:7233', 'default'] if positional_args.empty?
+keyword_args[:logger] = Logger.new($stdout, level: Logger::INFO)
+
 # Create a Temporal client
-client = Temporalio::Client.connect(
-  'localhost:7233',
-  'default',
-  logger: Logger.new($stdout, level: Logger::INFO)
-)
+client = Temporalio::Client.connect(*positional_args, **keyword_args)
 
 # Create Temporal worker with the activity and workflow on the coinbase-ruby-sample-temporal task queue
 worker = Temporalio::Worker.new(

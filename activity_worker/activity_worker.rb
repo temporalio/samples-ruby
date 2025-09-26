@@ -2,10 +2,15 @@
 
 require_relative 'say_hello_activity'
 require 'temporalio/client'
+require 'temporalio/env_config'
 require 'temporalio/worker'
 
+# Load config and apply defaults
+positional_args, keyword_args = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
+positional_args = ['localhost:7233', 'default'] if positional_args.empty?
+
 # Create a client
-client = Temporalio::Client.connect('localhost:7233', 'default')
+client = Temporalio::Client.connect(*positional_args, **keyword_args)
 
 # Create worker with the client and activity
 worker = Temporalio::Worker.new(
