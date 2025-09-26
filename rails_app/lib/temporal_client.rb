@@ -1,8 +1,16 @@
 require "temporalio/client"
+require "temporalio/env_config"
 
 module TemporalClient
   def self.instance
-    @instance ||=  Temporalio::Client.connect("localhost:7233", "default", logger: Rails.logger)
+    return @instance if @instance
+
+    # Load config and apply defaults
+    positional_args, keyword_args = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
+    positional_args = ["localhost:7233", "default"] if positional_args.empty?
+    keyword_args[:logger] = Rails.logger
+
+    @instance = Temporalio::Client.connect(*positional_args, **keyword_args)
   end
 
   def self.instance=(instance)
