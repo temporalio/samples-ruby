@@ -5,6 +5,7 @@ require_relative 'activities'
 require_relative 'constants'
 require 'logger'
 require 'temporalio/client'
+require 'temporalio/env_config'
 require 'temporalio/worker'
 require 'temporalio/worker/deployment_options'
 require 'temporalio/worker_deployment_version'
@@ -35,11 +36,12 @@ end
 if __FILE__ == $PROGRAM_NAME
   logger = Logger.new($stdout, level: Logger::INFO)
 
-  client = Temporalio::Client.connect(
-    'localhost:7233',
-    'default',
-    logger: logger
-  )
+  # Load config and apply defaults
+  positional_args, keyword_args = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
+  positional_args = ['localhost:7233', 'default'] if positional_args.empty?
+  keyword_args[:logger] = logger
+
+  client = Temporalio::Client.connect(*positional_args, **keyword_args)
 
   logger.info('Starting worker v1.1 (build 1.1)')
   WorkerVersioning::WorkerV1Dot1.run_async(client)
