@@ -15,8 +15,8 @@ client = Temporalio::Client.connect(
 
 # Use an instance for the stateful DB activity, other activity we will pass
 # in as class meaning it is instantiated each attempt
-db_client = ActivitySimple::MyActivities::MyDatabaseClient.new
-select_from_db_activity = ActivitySimple::MyActivities::SelectFromDatabase.new(db_client)
+db_client = AsyncActivity::MyActivities::MyDatabaseClient.new
+select_from_db_activity = AsyncActivity::MyActivities::SelectFromDatabase.new(db_client)
 
 # Create worker with the activities and workflow
 worker = Temporalio::Worker.new(
