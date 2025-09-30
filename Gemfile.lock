@@ -13,23 +13,23 @@ GEM
   specs:
     ast (2.4.2)
     base64 (0.2.0)
-    bigdecimal (3.2.2)
-    google-protobuf (4.32.0)
+    bigdecimal (3.2.3)
+    google-protobuf (4.32.1)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.32.0-aarch64-linux-gnu)
+    google-protobuf (4.32.1-aarch64-linux-gnu)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.32.0-arm64-darwin)
+    google-protobuf (4.32.1-arm64-darwin)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.32.0-x86-linux-gnu)
+    google-protobuf (4.32.1-x86-linux-gnu)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.32.0-x86_64-darwin)
+    google-protobuf (4.32.1-x86_64-darwin)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.32.0-x86_64-linux-gnu)
+    google-protobuf (4.32.1-x86_64-linux-gnu)
       bigdecimal
       rake (>= 13)
     googleapis-common-protos-types (1.19.0)
@@ -104,19 +104,19 @@ GEM
       rack-protection (= 4.1.1)
       rack-session (>= 2.0.0, < 3)
       tilt (~> 2.0)
-    temporalio (0.6.0)
+    temporalio (1.0.0)
       google-protobuf (>= 3.25.0)
       logger
-    temporalio (0.6.0-aarch64-linux)
+    temporalio (1.0.0-aarch64-linux)
       google-protobuf (>= 3.25.0)
       logger
-    temporalio (0.6.0-arm64-darwin)
+    temporalio (1.0.0-arm64-darwin)
       google-protobuf (>= 3.25.0)
       logger
-    temporalio (0.6.0-x86_64-darwin)
+    temporalio (1.0.0-x86_64-darwin)
       google-protobuf (>= 3.25.0)
       logger
-    temporalio (0.6.0-x86_64-linux)
+    temporalio (1.0.0-x86_64-linux)
       google-protobuf (>= 3.25.0)
       logger
     tilt (2.6.1)
