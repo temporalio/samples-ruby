@@ -2,11 +2,6 @@
 
 This is the set of Ruby samples for the [Ruby SDK](https://github.com/temporalio/sdk-ruby).
 
-⚠️ UNDER ACTIVE DEVELOPMENT
-
-The Ruby SDK is under active development and has not released a stable version yet. APIs may change in incompatible ways
-until the SDK is marked stable.
-
 ## Usage
 
 Prerequisites:
