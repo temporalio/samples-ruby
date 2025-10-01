@@ -22,6 +22,7 @@ Prerequisites:
   [Coinbase Ruby SDK](https://github.com/coinbase/temporal-ruby).
 * [context_propagation](context_propagation) - Use interceptors to propagate thread/fiber local data from clients
   through workflows/activities.
+* [dsl](dsl) - Demonstrates having a workflow interpret/invoke arbitrary steps defined in a DSL.
 * [encryption](encryption) - Demonstrates how to make a codec for end-to-end encryption.
 * [env_config](env_config) - Load client configuration from TOML files with programmatic overrides.
 * [message_passing_simple](message_passing_simple) - Simple workflow that accepts signals, queries, and updates.
