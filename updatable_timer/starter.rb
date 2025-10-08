@@ -8,9 +8,9 @@ logger = Logger.new($stdout, level: Logger::INFO)
 client = Temporalio::Client.connect('localhost:7233', 'default', logger:)
 
 # Run workflow
-logger.info('Starting timer')
+logger.info('Starting workflow')
 client.execute_workflow(
   UpdatableTimer::UpdatableTimerWorkflow, (Time.now(in: 'utc') + (24 * 60 * 60)).to_r,
-  id: 'updatable-timer-sample-workflow-id', task_queue: 'updatable-timer'
+  id: 'updatable-timer-sample-workflow-id', task_queue: 'updatable-timer-sample'
 )
-logger.info('Timer complete')
+logger.info('Workflow complete')

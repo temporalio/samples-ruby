@@ -15,7 +15,7 @@ client = Temporalio::Client.connect(
 # Create worker with the activities and workflow
 worker = Temporalio::Worker.new(
   client:,
-  task_queue: 'updatable-timer',
+  task_queue: 'updatable-timer-sample',
   workflows: [UpdatableTimer::UpdatableTimerWorkflow]
 )
 

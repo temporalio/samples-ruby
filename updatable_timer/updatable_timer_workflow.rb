@@ -5,8 +5,12 @@ require_relative 'updatable_timer'
 
 module UpdatableTimer
   class UpdatableTimerWorkflow < Temporalio::Workflow::Definition
-    def execute(wake_up_time)
+    workflow_init
+    def initialize(wake_up_time)
       @timer = UpdatableTimer.new(Time.at(Rational(wake_up_time)))
+    end
+
+    def execute(_wake_up_time)
       @timer.sleep
     end
 

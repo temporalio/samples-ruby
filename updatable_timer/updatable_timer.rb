@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
 require 'temporalio/workflow'
-require 'temporalio/error'
 
 module UpdatableTimer
   class UpdatableTimer
     def initialize(wake_up_time)
       @wake_up_time = wake_up_time
-      @wake_up_time_updated = false
     end
 
     attr_reader :wake_up_time
@@ -34,7 +32,7 @@ module UpdatableTimer
             Temporalio::Workflow.wait_condition { @wake_up_time_updated }
           end
         rescue Timeout::Error
-          next
+          break
         end
       end
       Temporalio::Workflow.logger.info('sleep_until completed')

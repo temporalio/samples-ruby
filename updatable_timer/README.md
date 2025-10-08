@@ -16,7 +16,7 @@ Then in another terminal, use the Ruby client to the workflow from this director
 
 The Ruby code will invoke the workflow which will create a timer that will resolve in a day.
 
-Finally run the updater to change the timer to 10 seconds from now:
+Finally in a third terminal, run the updater to change the timer to 10 seconds from now:
 
 ```bash
   bundle exec ruby wake_up_timer_updater.rb
