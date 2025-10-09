@@ -23,6 +23,7 @@ workflow_versions = {
   'complete' => Patching::MyWorkflow4Complete
 }
 
+# Select which version of the workflow the worker should use
 workflow_version = ARGV.first || raise('Missing argument for workflow version')
 workflow = workflow_versions[workflow_version] ||
            raise("Unrecognized workflow #{workflow_version}. Accepted values are #{workflow_versions.keys.join(', ')}")

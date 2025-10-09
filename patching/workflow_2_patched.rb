@@ -9,6 +9,7 @@ module Patching
     workflow_query_attr_reader :result
 
     def execute
+      # Decide which activity to use based on workflow's patch status
       @result = if Temporalio::Workflow.patched :my_patch
                   Temporalio::Workflow.execute_activity(
                     MyActivities::PostPatch,
