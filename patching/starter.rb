@@ -11,6 +11,7 @@ raise('Missing workflow_id') if workflow_id.nil?
 
 case command
 when 'start'
+  # Start a workflow with the given id
   client.start_workflow(
     'MyWorkflow',
     id: workflow_id,
@@ -18,6 +19,7 @@ when 'start'
   )
   puts "Started workflow with id #{workflow_id}"
 when 'query'
+  # Obtain a workflow handle for the given id and query the result
   handle = client.workflow_handle(workflow_id)
   result = handle.query(:result)
   puts "Query result for id #{workflow_id}: #{result}"
