@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'test'
-require 'eager_wf_start/eager_workflow'
+require 'eager_workflow_start/eager_workflow'
 require 'securerandom'
 require 'temporalio/testing'
 require 'temporalio/worker'

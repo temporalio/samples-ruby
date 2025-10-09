@@ -11,4 +11,4 @@ You can read more about Eager Workflow Start in our:
 
 To run, first see [README.md](../README.md) for prerequisites. Then run the sample via:
 
-    bundle exec ruby eager_wf_start/run.rb
+    bundle exec ruby eager_workflow_start/run.rb

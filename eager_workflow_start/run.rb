@@ -6,7 +6,7 @@ require 'temporalio/worker'
 require_relative 'eager_workflow'
 require_relative 'greeting_activity'
 
-TASK_QUEUE = 'eager-wf-start-task-queue'
+TASK_QUEUE = 'eager-wf-start-sample'
 
 # Note that the worker and client run in the same process and share the same client connection
 client = Temporalio::Client.connect('localhost:7233', 'default')
@@ -23,7 +23,7 @@ worker.run do
   handle = client.start_workflow(
     EagerWfStart::EagerWorkflow,
     'Temporal',
-    id: "eager-workflow-id-#{SecureRandom.uuid}",
+    id: 'eager-workflow-start-sample-workflow-id',
     task_queue: TASK_QUEUE,
     request_eager_start: true
   )
