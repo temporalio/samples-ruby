@@ -3,7 +3,7 @@
 require 'temporalio/workflow'
 require_relative 'greeting_activity'
 
-module EagerWfStart
+module EagerWorkflowStart
   class EagerWorkflow < Temporalio::Workflow::Definition
     def execute(name)
       Temporalio::Workflow.execute_local_activity(
