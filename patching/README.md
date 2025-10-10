@@ -109,7 +109,7 @@ As expected, this will output "Query result for id deprecated-id: post-patch".
 ## Stage 4
 
 Once we know we don't even have any workflows running on "Stage 2" or before (i.e. the workflow with the patch with both code paths), we can just remove the patch deprecation altogether.
-To use the patch complete workflow, stop the workflow from before and start it again with:
+To use the patch complete workflow, stop the worker from before and start it again with:
 
 ```bash
   bundle exec ruby worker.rb complete
@@ -139,4 +139,3 @@ And if we execute a query against the latest workflow:
 As expected, this will output "Query result for id complete-id: post-patch".
 
 Following these stages, we have successfully altered our workflow code.
-

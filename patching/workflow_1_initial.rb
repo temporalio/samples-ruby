@@ -5,7 +5,7 @@ require_relative 'my_activities'
 
 module Patching
   class MyWorkflow1Initial < Temporalio::Workflow::Definition
-    workflow_name 'MyWorkflow'
+    workflow_name :MyWorkflow
     workflow_query_attr_reader :result
 
     def execute
