@@ -5,11 +5,11 @@ require_relative 'my_activities'
 
 module Patching
   class MyWorkflow3Deprecated < Temporalio::Workflow::Definition
-    workflow_name 'MyWorkflow'
+    workflow_name :MyWorkflow
     workflow_query_attr_reader :result
 
     def execute
-      Temporalio::Workflow.deprecate_patch :my_patch
+      Temporalio::Workflow.deprecate_patch(:my_patch)
       @result = Temporalio::Workflow.execute_activity(
         MyActivities::PostPatch,
         start_to_close_timeout: 5 * 60

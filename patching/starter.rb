@@ -13,7 +13,7 @@ case command
 when 'start'
   # Start a workflow with the given id
   client.start_workflow(
-    'MyWorkflow',
+    :MyWorkflow,
     id: workflow_id,
     task_queue: 'patching-sample'
   )
