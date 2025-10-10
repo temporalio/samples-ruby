@@ -12,7 +12,6 @@ module Polling
   module Frequent
     class GreetingWorkflowTest < Test
       def test_workflow_completes_after_polling
-        # skip_if_not_x86!
         task_queue = "tq-#{SecureRandom.uuid}"
 
         Temporalio::Testing::WorkflowEnvironment.start_local do |env|
