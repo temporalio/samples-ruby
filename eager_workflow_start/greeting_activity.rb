@@ -2,7 +2,7 @@
 
 require 'temporalio/activity'
 
-module EagerWfStart
+module EagerWorkflowStart
   class GreetingActivity < Temporalio::Activity::Definition
     def execute(name)
       "Hello, #{name}!"

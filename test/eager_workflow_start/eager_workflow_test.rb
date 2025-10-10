@@ -6,7 +6,7 @@ require 'securerandom'
 require 'temporalio/testing'
 require 'temporalio/worker'
 
-module EagerWfStart
+module EagerWorkflowStart
   class EagerWorkflowTest < Test
     def test_workflow
       # Run test server until completion of the block
