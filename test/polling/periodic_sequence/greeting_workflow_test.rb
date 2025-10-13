@@ -6,7 +6,7 @@ require 'temporalio/testing'
 require 'temporalio/worker'
 require 'polling/periodic_sequence/greeting_workflow'
 require 'polling/periodic_sequence/compose_greeting_activity'
-require 'polling/periodic_sequence/test_service'
+require 'polling/test_service'
 
 module Polling
   module PeriodicSequence

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'temporalio/activity'
-require_relative 'test_service'
+require_relative '../test_service'
 
 module Polling
   module Frequent

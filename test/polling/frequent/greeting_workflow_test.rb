@@ -6,7 +6,7 @@ require 'temporalio/testing'
 require 'temporalio/worker'
 require 'polling/frequent/greeting_workflow'
 require 'polling/frequent/compose_greeting_activity'
-require 'polling/frequent/test_service'
+require 'polling/test_service'
 
 module Polling
   module Frequent
