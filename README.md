@@ -23,7 +23,7 @@ Prerequisites:
 * [context_propagation](context_propagation) - Use interceptors to propagate thread/fiber local data from clients
   through workflows/activities.
 * [dsl](dsl) - Demonstrates having a workflow interpret/invoke arbitrary steps defined in a DSL.
-* [eager_wf_start](eager_wf_start) - Demonstrates Eager Workflow Start to reduce latency for workflows that start with a local activity.
+* [eager_workflow_start](eager_workflow_start) - Demonstrates Eager Workflow Start to reduce latency for workflows that start with a local activity.
 * [encryption](encryption) - Demonstrates how to make a codec for end-to-end encryption.
 * [env_config](env_config) - Load client configuration from TOML files with programmatic overrides.
 * [message_passing_simple](message_passing_simple) - Simple workflow that accepts signals, queries, and updates.
