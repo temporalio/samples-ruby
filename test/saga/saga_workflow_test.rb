@@ -7,7 +7,7 @@ require 'saga/saga_workflow'
 require 'temporalio/testing'
 require 'temporalio/worker'
 require 'polling/infrequent/compose_greeting_activity'
-require 'polling/infrequent/test_service'
+require 'polling/test_service'
 
 module Saga
   class SagaWorkflowTest < Test
