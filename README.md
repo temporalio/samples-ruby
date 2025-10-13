@@ -27,7 +27,10 @@ Prerequisites:
 * [encryption](encryption) - Demonstrates how to make a codec for end-to-end encryption.
 * [env_config](env_config) - Load client configuration from TOML files with programmatic overrides.
 * [message_passing_simple](message_passing_simple) - Simple workflow that accepts signals, queries, and updates.
+* [patching](patching) - Demonstrates how to safely alter a workflow.
+* [polling/frequent](polling/frequent) - Implement a frequent polling mechanism inside an Activity.
 * [polling/infrequent](polling/infrequent) - Implement an infrequent polling mechanism using Temporal's automatic Activity Retry feature.
+* [polling/periodic_sequence](polling/periodic_sequence) - Implement a periodic polling mechanism using a Child Workflow.
 * [rails_app](rails_app) - Basic Rails API application using Temporal workflows and activities.
 * [saga](saga) - Using undo/compensation using a very simplistic Saga pattern.
 * [sorbet_generic](sorbet_generic) - Proof of concept of how to do _advanced_ Sorbet typing with the SDK.
@@ -40,4 +43,3 @@ Prerequisites:
 To check format and test this repository, run:
 
     bundle exec rake
-
