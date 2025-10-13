@@ -18,7 +18,7 @@ Temporalio::Runtime.default.metric_meter.create_metric(:gauge, 'my-worker-gauge'
                    .record(1.23)
 
 # Create a client with the tracing interceptor set using the tracer
-tracer = OpenTelemetry.tracer_provider.tracer('temporal_ruby_sample', '0.1.0')
+tracer = OpenTelemetry.tracer_provider.tracer('opentelemetry_sample', '1.0.0')
 client = Temporalio::Client.connect(
   'localhost:7233',
   'default',

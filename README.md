@@ -27,6 +27,7 @@ Prerequisites:
 * [encryption](encryption) - Demonstrates how to make a codec for end-to-end encryption.
 * [env_config](env_config) - Load client configuration from TOML files with programmatic overrides.
 * [message_passing_simple](message_passing_simple) - Simple workflow that accepts signals, queries, and updates.
+* [opentelemetry](opentelemetry) - Demonstrates how to use OpenTelemetry tracing and metrics with the Ruby SDK
 * [patching](patching) - Demonstrates how to safely alter a workflow.
 * [polling/frequent](polling/frequent) - Implement a frequent polling mechanism inside an Activity.
 * [polling/infrequent](polling/infrequent) - Implement an infrequent polling mechanism using Temporal's automatic Activity Retry feature.

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'opentelemetry/exporter/otlp'
 require 'opentelemetry/sdk'
 require 'temporalio/contrib/open_telemetry'
@@ -18,8 +20,8 @@ module OpenTelemetrySample
           )
         )
       )
-      # Globally configure the Ruby OpenTelemetry library for tracing purposes. As of this writing, OpenTelemetry Ruby does
-      # not support OTLP over gRPC, so we use the HTTP endpoint instead.
+      # Globally configure the Ruby OpenTelemetry library for tracing purposes. As of this writing, OpenTelemetry Ruby
+      # does not support OTLP over gRPC, so we use the HTTP endpoint instead.
       OpenTelemetry::SDK.configure do |c|
         c.service_name = 'my-service'
         c.use_all
