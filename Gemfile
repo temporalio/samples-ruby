@@ -24,3 +24,9 @@ group :encryption do
   gem 'rackup'
   gem 'sinatra'
 end
+
+group :opentelemetry do
+  gem 'opentelemetry-api'
+  gem 'opentelemetry-exporter-otlp'
+  gem 'opentelemetry-sdk'
+end
