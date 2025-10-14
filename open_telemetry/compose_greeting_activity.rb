@@ -2,7 +2,7 @@
 
 require 'temporalio/activity'
 
-module OpenTelemetrySample
+module OpenTelemetry
   class ComposeGreetingActivity < Temporalio::Activity::Definition
     def initialize(tracer)
       @tracer = tracer

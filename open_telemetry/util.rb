@@ -5,7 +5,7 @@ require 'opentelemetry/sdk'
 require 'temporalio/contrib/open_telemetry'
 require 'temporalio/runtime'
 
-module OpenTelemetrySample
+module OpenTelemetry
   module Util
     def self.configure_metrics_and_tracing
       # Before doing anything, configure the default runtime with OpenTelemetry metrics. Unlike OpenTelemetry tracing in

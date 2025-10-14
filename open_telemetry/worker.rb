@@ -10,7 +10,7 @@ require_relative 'greeting_workflow'
 require_relative 'util'
 
 # Configure metrics and tracing
-OpenTelemetrySample::Util.configure_metrics_and_tracing
+OpenTelemetry::Util.configure_metrics_and_tracing
 
 # Demonstrate that we can create a custom metric right on the runtime, though most users won't need this
 Temporalio::Runtime.default.metric_meter.create_metric(:gauge, 'my-worker-gauge', value_type: :float)
@@ -29,8 +29,8 @@ client = Temporalio::Client.connect(
 worker = Temporalio::Worker.new(
   client:,
   task_queue: 'opentelemetry-sample',
-  activities: [OpenTelemetrySample::ComposeGreetingActivity.new(tracer)],
-  workflows: [OpenTelemetrySample::GreetingWorkflow]
+  activities: [OpenTelemetry::ComposeGreetingActivity.new(tracer)],
+  workflows: [OpenTelemetry::GreetingWorkflow]
 )
 puts 'Starting worker (ctrl+c to exit)'
 worker.run(shutdown_signals: ['SIGINT'])

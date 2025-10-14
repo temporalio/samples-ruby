@@ -4,7 +4,7 @@ require 'temporalio/workflow'
 require 'temporalio/contrib/open_telemetry'
 require_relative 'compose_greeting_activity'
 
-module OpenTelemetrySample
+module OpenTelemetry
   class GreetingWorkflow < Temporalio::Workflow::Definition
     def initialize
       # Custom metrics can be created inside workflows. Most users will not need to create custom metrics inside

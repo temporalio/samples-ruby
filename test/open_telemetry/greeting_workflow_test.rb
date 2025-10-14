@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require 'test'
-require 'opentelemetry/compose_greeting_activity'
-require 'opentelemetry/greeting_workflow'
+require 'open_telemetry/compose_greeting_activity'
+require 'open_telemetry/greeting_workflow'
 require 'opentelemetry/sdk'
 require 'securerandom'
 require 'temporalio/client'
@@ -10,7 +10,7 @@ require 'temporalio/contrib/open_telemetry'
 require 'temporalio/testing'
 require 'temporalio/worker'
 
-module OpenTelemetrySample
+module OpenTelemetry
   class GreetingWorkflowTest < Test
     def test_workflow
       # Setup in memory buffer for telemetry events
