@@ -2,13 +2,17 @@
 
 require 'logger'
 require 'temporalio/client'
+require 'temporalio/env_config'
 require 'temporalio/worker'
 require_relative 'activities'
 require_relative 'dsl_workflow'
 
 # Create a Temporal client
+positional_args, keyword_args = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
+positional_args = ['localhost:7233', 'default'] if positional_args.empty?
 logger = Logger.new($stdout, level: Logger::INFO)
-client = Temporalio::Client.connect('localhost:7233', 'default', logger:)
+keyword_args[:logger] = logger
+client = Temporalio::Client.connect(*positional_args, **keyword_args)
 
 # Create worker with the activities and workflow
 worker = Temporalio::Worker.new(

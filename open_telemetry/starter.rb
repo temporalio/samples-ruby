@@ -3,6 +3,7 @@
 require 'opentelemetry/sdk'
 require 'temporalio/client'
 require 'temporalio/contrib/open_telemetry'
+require 'temporalio/env_config'
 require 'temporalio/runtime'
 require_relative 'greeting_workflow'
 require_relative 'util'
@@ -17,11 +18,10 @@ Temporalio::Runtime.default.metric_meter.create_metric(:gauge, 'my-starter-gauge
 
 # Create a client with the tracing interceptor set using the tracer
 tracer = OpenTelemetry.tracer_provider.tracer('temporal_ruby_sample', '0.1.0')
-client = Temporalio::Client.connect(
-  'localhost:7233',
-  'default',
-  interceptors: [Temporalio::Contrib::OpenTelemetry::TracingInterceptor.new(tracer)]
-)
+positional_args, keyword_args = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
+positional_args = ['localhost:7233', 'default'] if positional_args.empty?
+keyword_args[:interceptors] = [Temporalio::Contrib::OpenTelemetry::TracingInterceptor.new(tracer)]
+client = Temporalio::Client.connect(*positional_args, **keyword_args)
 
 # Demonstrate an arbitrary outer span. Most users may not explicitly create outer spans before using clients and rather
 # solely rely on the implicit ones created in the client via interceptor, but this demonstrates that it can be done.

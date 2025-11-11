@@ -7,14 +7,14 @@ require_relative 'workflow_3_deprecated'
 require_relative 'workflow_4_complete'
 require 'logger'
 require 'temporalio/client'
+require 'temporalio/env_config'
 require 'temporalio/worker'
 
 # Create a Temporal client
-client = Temporalio::Client.connect(
-  'localhost:7233',
-  'default',
-  logger: Logger.new($stdout, level: Logger::INFO)
-)
+positional_args, keyword_args = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
+positional_args = ['localhost:7233', 'default'] if positional_args.empty?
+keyword_args[:logger] = Logger.new($stdout, level: Logger::INFO)
+client = Temporalio::Client.connect(*positional_args, **keyword_args)
 
 workflow_versions = {
   'initial' => Patching::MyWorkflow1Initial,
