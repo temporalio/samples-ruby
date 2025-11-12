@@ -6,11 +6,10 @@ module TemporalClient
     return @instance if @instance
 
     # Load config and apply defaults
-    positional_args, keyword_args = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
-    positional_args = ["localhost:7233", "default"] if positional_args.empty?
-    keyword_args[:logger] = Rails.logger
+    args, kwargs = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
+    args = ["localhost:7233", "default"] if args.empty?
 
-    @instance = Temporalio::Client.connect(*positional_args, **keyword_args)
+    @instance = Temporalio::Client.connect(*args, **kwargs, logger: Rails.logger)
   end
 
   def self.instance=(instance)

@@ -19,12 +19,13 @@ Temporalio::Runtime.default.metric_meter.create_metric(:gauge, 'my-worker-gauge'
                    .record(1.23)
 
 # Create a client with the tracing interceptor set using the tracer
-positional_args, keyword_args = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
-positional_args = ['localhost:7233', 'default'] if positional_args.empty?
+args, kwargs = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
+args[0] ||= 'localhost:7233' # Default address
+args[1] ||= 'default' # Default namespace
 
 tracer = OpenTelemetry.tracer_provider.tracer('opentelemetry_sample', '1.0.0')
-keyword_args[:interceptors] = [Temporalio::Contrib::OpenTelemetry::TracingInterceptor.new(tracer)]
-client = Temporalio::Client.connect(*positional_args, **keyword_args)
+interceptors = [Temporalio::Contrib::OpenTelemetry::TracingInterceptor.new(tracer)]
+client = Temporalio::Client.connect(*args, **kwargs, interceptors: interceptors)
 
 # Run worker
 worker = Temporalio::Worker.new(

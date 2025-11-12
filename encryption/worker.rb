@@ -7,13 +7,14 @@ require_relative 'codec'
 require_relative 'my_workflow'
 
 # Load config and apply defaults
-positional_args, keyword_args = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
-positional_args = ['localhost:7233', 'default'] if positional_args.empty?
+args, kwargs = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
+args[0] ||= 'localhost:7233' # Default address
+args[1] ||= 'default' # Default namespace
 # Set data converter with our codec
-keyword_args[:data_converter] = Temporalio::Converters::DataConverter.new(payload_codec: Encryption::Codec.new)
+data_converter = Temporalio::Converters::DataConverter.new(payload_codec: Encryption::Codec.new)
 
 # Create a client
-client = Temporalio::Client.connect(*positional_args, **keyword_args)
+client = Temporalio::Client.connect(*args, **kwargs, data_converter: data_converter)
 
 # Create worker with the workflow
 worker = Temporalio::Worker.new(

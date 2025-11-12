@@ -7,15 +7,16 @@ require_relative 'interceptor'
 require_relative 'say_hello_workflow'
 
 # Load config and apply defaults
-positional_args, keyword_args = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
-positional_args = ['localhost:7233', 'default'] if positional_args.empty?
-keyword_args[:logger] = Logger.new($stdout, level: Logger::INFO)
+args, kwargs = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
+args[0] ||= 'localhost:7233' # Default address
+args[1] ||= 'default' # Default namespace
 # Add the context propagation interceptor to propagate the :my_user
 # thread/fiber local
-keyword_args[:interceptors] = [ContextPropagation::Interceptor.new(:my_user)]
+interceptors = [ContextPropagation::Interceptor.new(:my_user)]
 
 # Create a Temporal client
-client = Temporalio::Client.connect(*positional_args, **keyword_args)
+client = Temporalio::Client.connect(*args, **kwargs, logger: Logger.new($stdout, level: Logger::INFO),
+                                                     interceptors: interceptors)
 
 # Set user as "Alice" which will get propagated in a distributed way through
 # the workflow and activity via Temporal headers

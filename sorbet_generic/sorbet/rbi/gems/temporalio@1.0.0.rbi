@@ -8961,7 +8961,7 @@ class Temporalio::EnvConfig::ClientConfig < ::Data
     # @param disable_env [Boolean] If true, environment variable loading and overriding is disabled
     # @param config_file_strict [Boolean] If true, will error on unrecognized keys
     # @param override_env_vars [Hash, nil] Environment variables to use for loading and overrides
-    # @return [Array] Tuple of [positional_args, keyword_args] that can be splatted to Client.connect
+    # @return [Array] Tuple of [args, kwargs] that can be splatted to Client.connect
     #
     # source://temporalio//lib/temporalio/env_config.rb#296
     def load_client_connect_options(profile: T.unsafe(nil), config_source: T.unsafe(nil), disable_file: T.unsafe(nil), disable_env: T.unsafe(nil), config_file_strict: T.unsafe(nil), override_env_vars: T.unsafe(nil)); end
@@ -8994,7 +8994,7 @@ class Temporalio::EnvConfig::ClientConfigProfile < ::Data
 
   # Create a client connect config from this profile
   #
-  # @return [Array] Tuple of [positional_args, keyword_args] that can be splatted to Client.connect
+  # @return [Array] Tuple of [args, kwargs] that can be splatted to Client.connect
   #
   # source://temporalio//lib/temporalio/env_config.rb#214
   def to_client_connect_options; end

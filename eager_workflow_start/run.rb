@@ -10,9 +10,10 @@ require_relative 'greeting_activity'
 TASK_QUEUE = 'eager-workflow-start-sample'
 
 # Note that the worker and client run in the same process and share the same client connection
-positional_args, keyword_args = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
-positional_args = ['localhost:7233', 'default'] if positional_args.empty?
-client = Temporalio::Client.connect(*positional_args, **keyword_args)
+args, kwargs = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
+args[0] ||= 'localhost:7233' # Default address
+args[1] ||= 'default' # Default namespace
+client = Temporalio::Client.connect(*args, **kwargs)
 
 worker = Temporalio::Worker.new(
   client:,

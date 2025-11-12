@@ -7,11 +7,12 @@ require 'temporalio/env_config'
 require_relative 'say_hello_workflow'
 
 # Load config and apply defaults
-positional_args, keyword_args = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
-positional_args = ['localhost:7233', 'default'] if positional_args.empty?
+args, kwargs = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
+args[0] ||= 'localhost:7233' # Default address
+args[1] ||= 'default' # Default namespace
 
 # Create a client
-client = Temporalio::Client.connect(*positional_args, **keyword_args)
+client = Temporalio::Client.connect(*args, **kwargs)
 
 # Start workflow
 handle = client.start_workflow(
