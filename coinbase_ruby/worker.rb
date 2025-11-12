@@ -15,12 +15,12 @@ require 'temporal-ruby'
 require 'temporal/worker'
 
 # Load config and apply defaults
-positional_args, keyword_args = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
-positional_args = ['localhost:7233', 'default'] if positional_args.empty?
-keyword_args[:logger] = Logger.new($stdout, level: Logger::INFO)
+args, kwargs = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
+args[0] ||= 'localhost:7233' # Default address
+args[1] ||= 'default' # Default namespace
 
 # Create a Temporal client
-client = Temporalio::Client.connect(*positional_args, **keyword_args)
+client = Temporalio::Client.connect(*args, **kwargs, logger: Logger.new($stdout, level: Logger::INFO))
 
 # Create Temporal worker with the activity and workflow on the coinbase-ruby-sample-temporal task queue
 worker = Temporalio::Worker.new(
