@@ -40,10 +40,10 @@ class Temporalio::Client::WorkflowHandle
   end
 
   sig do
-    params(follow_runs: T::Boolean, rpc_options: T.nilable(Temporalio::Client::RPCOptions))
+    params(follow_runs: T::Boolean, result_hint: T.untyped, rpc_options: T.nilable(Temporalio::Client::RPCOptions))
       .returns(Result)
   end
-  def result(follow_runs: T.unsafe(nil), rpc_options: T.unsafe(nil)); end
+  def result(follow_runs: T.unsafe(nil), result_hint: T.unsafe(nil), rpc_options: T.unsafe(nil)); end
 
   sig do
     type_parameters(:TArg)
