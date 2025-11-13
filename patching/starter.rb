@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
 require 'temporalio/client'
+require 'temporalio/env_config'
 
 # Create a client
-client = Temporalio::Client.connect('localhost:7233', 'default')
+args, kwargs = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
+args[0] ||= 'localhost:7233' # Default address
+args[1] ||= 'default' # Default namespace
+client = Temporalio::Client.connect(*args, **kwargs)
 
 command, workflow_id = ARGV
 raise('Missing command argument. Valid commands are start and query') if command.nil?

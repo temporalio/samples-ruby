@@ -6,14 +6,16 @@ require_relative 'worker_specific_activities'
 require 'logger'
 require 'securerandom'
 require 'temporalio/client'
+require 'temporalio/env_config'
 require 'temporalio/worker'
 
+# Load config and apply defaults
+args, kwargs = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
+args[0] ||= 'localhost:7233' # Default address
+args[1] ||= 'default' # Default namespace
+
 # Create client with logger
-client = Temporalio::Client.connect(
-  'localhost:7233',
-  'default',
-  logger: Logger.new($stdout, level: Logger::INFO)
-)
+client = Temporalio::Client.connect(*args, **kwargs, logger: Logger.new($stdout, level: Logger::INFO))
 
 # Create a unique task queue for this worker
 unique_task_queue = SecureRandom.uuid

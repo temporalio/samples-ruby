@@ -3,16 +3,18 @@
 require 'logger'
 require 'sorbet-runtime'
 require 'temporalio/client'
+require 'temporalio/env_config'
 require 'temporalio/worker'
 require_relative 'say_hello_activity'
 require_relative 'say_hello_workflow'
 
+# Load config and apply defaults
+args, kwargs = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
+args[0] ||= 'localhost:7233' # Default address
+args[1] ||= 'default' # Default namespace
+
 # Create a Temporal client
-client = Temporalio::Client.connect(
-  'localhost:7233',
-  'default',
-  logger: Logger.new($stdout, level: Logger::INFO)
-)
+client = Temporalio::Client.connect(*args, **kwargs, logger: Logger.new($stdout, level: Logger::INFO))
 
 # Create worker with the activity and workflow
 worker = Temporalio::Worker.new(

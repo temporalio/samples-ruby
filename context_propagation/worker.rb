@@ -5,16 +5,19 @@ require_relative 'say_hello_activity'
 require_relative 'say_hello_workflow'
 require 'logger'
 require 'temporalio/client'
+require 'temporalio/env_config'
 require 'temporalio/worker'
 
+# Load config and apply defaults
+args, kwargs = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
+args[0] ||= 'localhost:7233' # Default address
+args[1] ||= 'default' # Default namespace
+# Add the context propagation interceptor to propagate the :my_user thread/fiber local
+interceptors = [ContextPropagation::Interceptor.new(:my_user)]
+
 # Create a Temporal client
-client = Temporalio::Client.connect(
-  'localhost:7233',
-  'default',
-  logger: Logger.new($stdout, level: Logger::INFO),
-  # Add the context propagation interceptor to propagate the :my_user thread/fiber local
-  interceptors: [ContextPropagation::Interceptor.new(:my_user)]
-)
+client = Temporalio::Client.connect(*args, **kwargs, logger: Logger.new($stdout, level: Logger::INFO),
+                                                     interceptors: interceptors)
 
 # Create worker with the activity and workflow
 worker = Temporalio::Worker.new(
