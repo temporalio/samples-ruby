@@ -46,8 +46,7 @@ module WorkerSpecificTaskQueues
         unique_worker = Temporalio::Worker.new(
           client: env.client,
           task_queue: unique_task_queue,
-          activities: [WorkerSpecificActivities::DownloadFileActivity, WorkerSpecificActivities::WorkOnFileActivity,
-                       WorkerSpecificActivities::CleanupFileActivity]
+          activities: [DownloadFileActivity, WorkOnFileActivity, CleanupFileActivity]
         )
 
         # Run worker until completion of the block
