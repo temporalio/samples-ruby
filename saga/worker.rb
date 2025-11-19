@@ -2,16 +2,20 @@
 
 require 'logger'
 require 'temporalio/client'
+require 'temporalio/env_config'
 require 'temporalio/worker'
 require_relative 'activities'
 require_relative 'saga_workflow'
 
+# Load config and apply defaults
+args, kwargs = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
+args[0] ||= 'localhost:7233' # Default address
+args[1] ||= 'default' # Default namespace
+# Enable info logging to see our activity logs
+logger = Logger.new($stdout, level: Logger::INFO)
+
 # Create a Temporal client
-client = Temporalio::Client.connect(
-  'localhost:7233', 'default',
-  # Enable info logging to see our activity logs
-  logger: Logger.new($stdout, level: Logger::INFO)
-)
+client = Temporalio::Client.connect(*args, **kwargs, logger:)
 
 # Create worker with the activities and workflow
 worker = Temporalio::Worker.new(

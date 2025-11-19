@@ -3,6 +3,7 @@
 require 'opentelemetry/sdk'
 require 'temporalio/client'
 require 'temporalio/contrib/open_telemetry'
+require 'temporalio/env_config'
 require 'temporalio/runtime'
 require 'temporalio/worker'
 require_relative 'compose_greeting_activity'
@@ -18,12 +19,13 @@ Temporalio::Runtime.default.metric_meter.create_metric(:gauge, 'my-worker-gauge'
                    .record(1.23)
 
 # Create a client with the tracing interceptor set using the tracer
+args, kwargs = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
+args[0] ||= 'localhost:7233' # Default address
+args[1] ||= 'default' # Default namespace
+
 tracer = OpenTelemetry.tracer_provider.tracer('opentelemetry_sample', '1.0.0')
-client = Temporalio::Client.connect(
-  'localhost:7233',
-  'default',
-  interceptors: [Temporalio::Contrib::OpenTelemetry::TracingInterceptor.new(tracer)]
-)
+interceptors = [Temporalio::Contrib::OpenTelemetry::TracingInterceptor.new(tracer)]
+client = Temporalio::Client.connect(*args, **kwargs, interceptors:)
 
 # Run worker
 worker = Temporalio::Worker.new(

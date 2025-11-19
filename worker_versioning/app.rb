@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'temporalio/client'
+require 'temporalio/env_config'
 require 'temporalio/api/workflowservice/v1/request_response'
 require 'temporalio/worker_deployment_version'
 require 'logger'
@@ -10,11 +11,14 @@ require_relative 'constants'
 def main(client = nil)
   logger = Logger.new($stdout, level: Logger::INFO)
 
-  client ||= Temporalio::Client.connect(
-    'localhost:7233',
-    'default',
-    logger:
-  )
+  unless client
+    # Load config and apply defaults
+    args, kwargs = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
+    args[0] ||= 'localhost:7233' # Default address
+    args[1] ||= 'default' # Default namespace
+
+    client = Temporalio::Client.connect(*args, **kwargs, logger:)
+  end
 
   # Wait for v1 worker and set as current version
   logger.info(

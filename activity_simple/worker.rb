@@ -4,14 +4,16 @@ require_relative 'my_activities'
 require_relative 'my_workflow'
 require 'logger'
 require 'temporalio/client'
+require 'temporalio/env_config'
 require 'temporalio/worker'
 
+# Load config and apply defaults
+args, kwargs = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
+args[0] ||= 'localhost:7233' # Default address
+args[1] ||= 'default' # Default namespace
+
 # Create a Temporal client
-client = Temporalio::Client.connect(
-  'localhost:7233',
-  'default',
-  logger: Logger.new($stdout, level: Logger::INFO)
-)
+client = Temporalio::Client.connect(*args, **kwargs, logger: Logger.new($stdout, level: Logger::INFO))
 
 # Use an instance for the stateful DB activity, other activity we will pass
 # in as class meaning it is instantiated each attempt

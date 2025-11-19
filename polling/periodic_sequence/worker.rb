@@ -4,10 +4,14 @@ require_relative 'greeting_workflow'
 require_relative 'child_workflow'
 require_relative 'compose_greeting_activity'
 require 'temporalio/client'
+require 'temporalio/env_config'
 require 'temporalio/worker'
 
 # Create a client
-client = Temporalio::Client.connect('localhost:7233', 'default')
+args, kwargs = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
+args[0] ||= 'localhost:7233' # Default address
+args[1] ||= 'default' # Default namespace
+client = Temporalio::Client.connect(*args, **kwargs)
 
 worker = Temporalio::Worker.new(
   client:,

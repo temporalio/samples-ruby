@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
 require 'temporalio/client'
+require 'temporalio/env_config'
 require_relative 'updatable_timer_workflow'
 
 # Create a Temporal client
+args, kwargs = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
+args[0] ||= 'localhost:7233' # Default address
+args[1] ||= 'default' # Default namespace
 logger = Logger.new($stdout, level: Logger::INFO)
-client = Temporalio::Client.connect('localhost:7233', 'default', logger:)
+client = Temporalio::Client.connect(*args, **kwargs, logger:)
 
 # Run workflow
 logger.info('Starting workflow')
