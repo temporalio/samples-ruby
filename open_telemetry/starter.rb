@@ -22,7 +22,7 @@ args, kwargs = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
 args[0] ||= 'localhost:7233' # Default address
 args[1] ||= 'default' # Default namespace
 interceptors = [Temporalio::Contrib::OpenTelemetry::TracingInterceptor.new(tracer)]
-client = Temporalio::Client.connect(*args, **kwargs, interceptors: interceptors)
+client = Temporalio::Client.connect(*args, **kwargs, interceptors:)
 
 # Demonstrate an arbitrary outer span. Most users may not explicitly create outer spans before using clients and rather
 # solely rely on the implicit ones created in the client via interceptor, but this demonstrates that it can be done.

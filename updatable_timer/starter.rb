@@ -9,7 +9,7 @@ args, kwargs = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
 args[0] ||= 'localhost:7233' # Default address
 args[1] ||= 'default' # Default namespace
 logger = Logger.new($stdout, level: Logger::INFO)
-client = Temporalio::Client.connect(*args, **kwargs, logger: logger)
+client = Temporalio::Client.connect(*args, **kwargs, logger:)
 
 # Run workflow
 logger.info('Starting workflow')

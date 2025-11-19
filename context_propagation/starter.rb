@@ -16,7 +16,7 @@ interceptors = [ContextPropagation::Interceptor.new(:my_user)]
 
 # Create a Temporal client
 client = Temporalio::Client.connect(*args, **kwargs, logger: Logger.new($stdout, level: Logger::INFO),
-                                                     interceptors: interceptors)
+                                                     interceptors:)
 
 # Set user as "Alice" which will get propagated in a distributed way through
 # the workflow and activity via Temporal headers

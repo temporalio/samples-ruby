@@ -17,7 +17,7 @@ def main(client = nil)
     args[0] ||= 'localhost:7233' # Default address
     args[1] ||= 'default' # Default namespace
 
-    client = Temporalio::Client.connect(*args, **kwargs, logger: logger)
+    client = Temporalio::Client.connect(*args, **kwargs, logger:)
   end
 
   # Wait for v1 worker and set as current version

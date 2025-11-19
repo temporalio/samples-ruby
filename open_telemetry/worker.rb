@@ -25,7 +25,7 @@ args[1] ||= 'default' # Default namespace
 
 tracer = OpenTelemetry.tracer_provider.tracer('opentelemetry_sample', '1.0.0')
 interceptors = [Temporalio::Contrib::OpenTelemetry::TracingInterceptor.new(tracer)]
-client = Temporalio::Client.connect(*args, **kwargs, interceptors: interceptors)
+client = Temporalio::Client.connect(*args, **kwargs, interceptors:)
 
 # Run worker
 worker = Temporalio::Worker.new(

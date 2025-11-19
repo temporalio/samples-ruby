@@ -15,7 +15,7 @@ args[1] ||= 'default' # Default namespace
 logger = Logger.new($stdout, level: Logger::INFO)
 
 # Create a Temporal client
-client = Temporalio::Client.connect(*args, **kwargs, logger: logger)
+client = Temporalio::Client.connect(*args, **kwargs, logger:)
 
 # Create worker with the activities and workflow
 worker = Temporalio::Worker.new(

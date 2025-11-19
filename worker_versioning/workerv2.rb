@@ -41,7 +41,7 @@ if __FILE__ == $PROGRAM_NAME
   args[0] ||= 'localhost:7233' # Default address
   args[1] ||= 'default' # Default namespace
 
-  client = Temporalio::Client.connect(*args, **kwargs, logger: logger)
+  client = Temporalio::Client.connect(*args, **kwargs, logger:)
 
   logger.info('Starting worker v2 (build 2.0)')
   WorkerVersioning::WorkerV2.run_async(client)
