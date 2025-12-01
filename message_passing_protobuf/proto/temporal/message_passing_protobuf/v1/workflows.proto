@@ -1,0 +1,15 @@
+// workflows.proto
+// contains contracts for inputs/outputs to Workflows and related primitives
+syntax = "proto3";
+
+// import "temporal/message_passing_protobuf/v1/values.proto";
+import "google/protobuf/timestamp.proto";
+
+package temporal.message_passing_protobuf.v1;
+
+
+message StartGreeting {
+  google.protobuf.Timestamp timestamp = 1;
+  string default_english_greeting = 2;
+  string default_chinese_greeting = 3;
+}
