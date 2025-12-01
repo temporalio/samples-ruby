@@ -1,0 +1,13 @@
+// workflows.proto
+// contains contracts for inputs/outputs to Workflows and related primitives
+syntax = "proto3";
+
+package temporal.message_passing_protobuf.v1;
+
+message Approval {
+  string approver_name = 1;
+}
+message Greeting {
+  string language = 1;
+  string greeting = 2;
+}

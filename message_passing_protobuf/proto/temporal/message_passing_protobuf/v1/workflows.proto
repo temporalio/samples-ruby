@@ -2,14 +2,41 @@
 // contains contracts for inputs/outputs to Workflows and related primitives
 syntax = "proto3";
 
-// import "temporal/message_passing_protobuf/v1/values.proto";
+import "temporal/message_passing_protobuf/v1/values.proto";
 import "google/protobuf/timestamp.proto";
 
 package temporal.message_passing_protobuf.v1;
 
 
-message StartGreeting {
+message StartGreetingRequest {
   google.protobuf.Timestamp timestamp = 1;
-  string default_english_greeting = 2;
-  string default_chinese_greeting = 3;
+  string language = 2;
+  repeated string supported_languages = 3;
+}
+
+message GreetingStateResponse {
+  StartGreetingRequest args = 1;
+  string language = 2;
+  repeated Greeting supported_greetings = 3;
+  optional temporal.message_passing_protobuf.v1.Approval approval = 4;
+}
+
+message ApproveForReleaseRequest {
+  string name = 1;
+}
+
+message SetLanguageRequest {
+  string language = 1;
+}
+
+message SupportLanguageRequest {
+  string language = 1;
+  bool set_language = 2;
+}
+
+message GetGreetingsRequest {
+  repeated string languages = 1;
+}
+message GetGreetingsResponse {
+  repeated Greeting greetings = 1;
 }

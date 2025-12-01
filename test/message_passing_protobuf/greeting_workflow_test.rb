@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 require 'test'
-require 'message_passing_simple/call_greeting_service'
-require 'message_passing_simple/greeting_workflow'
+require 'message_passing_protobuf/call_greeting_service'
+require 'message_passing_protobuf/greeting_workflow'
 require 'securerandom'
 require 'temporalio/testing'
 require 'temporalio/worker'
 
-module MessagePassingSimple
+module MessagePassingProtobuf
   class GreetingWorkflowTest < Test
     def with_worker_running
       Temporalio::Testing::WorkflowEnvironment.start_local do |env|

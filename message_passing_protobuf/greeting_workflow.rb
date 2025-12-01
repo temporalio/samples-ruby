@@ -2,8 +2,9 @@
 
 require 'temporalio/workflow'
 require_relative 'call_greeting_service'
+require_relative 'generated/temporal/message_passing_protobuf/v1/workflows_pb'
 
-module MessagePassingSimple
+module MessagePassingProtobuf
   # A workflow that that returns a greeting in one of multiple supported languages.
   #
   # It exposes a query to obtain the current language, a signal to approve the workflow so that it is allowed to return
@@ -20,71 +21,99 @@ module MessagePassingSimple
     #    end
     workflow_query_attr_reader :language
 
-    def initialize
-      @greetings = { chinese: '你好，世界', english: 'Hello, world' }
-      @language = :english
+    workflow_init
+    def initialize(input)
+      # input is a Temporal::MessagePassingProtobuf::V1::StartGreetingRequest protobuf message
+      @state = Temporal::MessagePassingProtobuf::V1::GreetingStateResponse.new(
+        args: input,
+        language: input.language,
+        approved_for_release: false,
+        supported_greetings: [],
+      )
     end
 
-    def execute
+    def execute(input)
+
+      unless @state.supported_greetings.size > 0
+        # first time we will load the greetings from the supported_greetings
+        request = Temporal::MessagePassingProtobuf::V1::GetGreetingsRequest.new(languages=@state.args.supported_languages)
+        response = Temporalio::Workflow.execute_local_activity(
+          GetGreetings, request, start_to_close_timeout: 10
+        )
+        @state.supported_greetings = response.greetings
+      end
       # In addition to waiting for the `approve` signal, we also wait for all handlers to finish. Otherwise, the
       # workflow might return its result while an async set_language_using_activity update is in progress.
-      Temporalio::Workflow.wait_condition { @approved_for_release && Temporalio::Workflow.all_handlers_finished? }
-      @greetings[@language]
+      Temporalio::Workflow.wait_condition { @state.approved_for_release && Temporalio::Workflow.all_handlers_finished? }
+
+      # Find the first greeting that matches the current language
+      greeting = get_current_greeting
+      greeting&.greeting
+    end
+
+    def get_current_greeting
+      get_greeting(@state.language)
+    end
+
+    def get_greeting(language)
+      @state.supported_greetings.find { |g| g.language == language }
     end
 
     workflow_query
-    def languages(input)
-      # A query handler returns a value: it can inspect but must not mutate the Workflow state.
-      if input['include_unsupported']
-        CallGreetingService.greetings.keys.sort
-      else
-        @greetings.keys.sort
-      end
+    def get_state(input)
+      @state
     end
 
     workflow_signal
     def approve(input)
-      # A signal handler mutates the workflow state but cannot return a value.
-      @approved_for_release = true
-      @approver_name = input['name']
+      @state.approval = Temporal::MessagePassingProtobuf::V1::Approval.new(
+        approver_name = input.name,
+      )
     end
 
     workflow_update
-    def set_language(new_language) # rubocop:disable Naming/AccessorMethodName
+    def set_language(cmd) # rubocop:disable Naming/AccessorMethodName
       # An update handler can mutate the workflow state and return a value.
-      prev = @language.to_sym
-      @language = new_language.to_sym
+      prev = @state.language
+      @state.language = cmd.language
       prev
     end
 
     workflow_update_validator(:set_language)
-    def validate_set_language(new_language)
+    def validate_set_language(input)
+      valid = @state.supported_greetings.find { |g| g.language == input.language }
       # In an update validator you raise any exception to reject the update.
-      raise "#{new_language} is not supported" unless @greetings.include?(new_language.to_sym)
+      raise "#{input.language} is not supported" unless valid
     end
 
     workflow_update
-    def apply_language_with_lookup(new_language)
+    def support_language(input)
       # Call an activity if it's not there.
-      unless @greetings.include?(new_language.to_sym)
+      supported = get_greeting(input.language)
+      unless supported
         # We use a mutex so that, if this handler is executed multiple times, each execution can schedule the activity
         # only when the previously scheduled activity has completed. This ensures that multiple calls to
         # apply_language_with_lookup are processed in order.
         @apply_language_mutex ||= Temporalio::Workflow::Mutex.new
         @apply_language_mutex.synchronize do
-          greeting = Temporalio::Workflow.execute_activity(
-            CallGreetingService, new_language, start_to_close_timeout: 10
+          request = Temporal::MessagePassingProtobuf::V1::GetGreetingsRequest.new(languages=[input.language])
+
+          # returns Temporal::MessagePassingProtobuf::V1::GetGreetingsResponse
+          response = Temporalio::Workflow.execute_activity(
+            GetGreetings, request, start_to_close_timeout: 10
           )
           # The requested language might not be supported by the remote service. If so, we raise ApplicationError, which
           # will fail the update. The WorkflowExecutionUpdateAccepted event will still be added to history. (Update
           # validators can be used to reject updates before any event is written to history, but they cannot be async,
           # and so we cannot use an update validator for this purpose.)
-          raise Temporalio::Error::ApplicationError, "Greeting service does not support #{new_language}" unless greeting
+          raise Temporalio::Error::ApplicationError, "Greeting service does not support #{input.language}" if response.greetings.empty?
 
-          @greetings[new_language.to_sym] = greeting
+          @state.supported_greetings.concat(response.greetings)
         end
       end
-      set_language(new_language)
+
+      if input.set_language
+        set_language(Temporal::MessagePassingProtobuf::V1::SetLanguage.new(language: input.language))
     end
   end
 end
