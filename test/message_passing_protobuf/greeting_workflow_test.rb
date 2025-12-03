@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# Add generated protobuf directory to load path
+$LOAD_PATH.unshift(File.expand_path('../../message_passing_protobuf/generated', __dir__))
+
 require 'test'
 require 'message_passing_protobuf/call_greeting_service'
 require 'message_passing_protobuf/greeting_workflow'

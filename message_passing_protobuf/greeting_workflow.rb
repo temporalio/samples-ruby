@@ -42,7 +42,7 @@ module MessagePassingProtobuf
       end
       # In addition to waiting for the `approve` signal, we also wait for all handlers to finish. Otherwise, the
       # workflow might return its result while an async set_language_using_activity update is in progress.
-      Temporalio::Workflow.wait_condition { @state.approval.nil? && Temporalio::Workflow.all_handlers_finished? }
+      Temporalio::Workflow.wait_condition { !@state.approval.nil? && Temporalio::Workflow.all_handlers_finished? }
 
       # Find the first greeting that matches the current language
       greeting = get_current_greeting
@@ -107,7 +107,7 @@ module MessagePassingProtobuf
           # and so we cannot use an update validator for this purpose.)
           raise Temporalio::Error::ApplicationError, "Greeting service does not support #{input.language}" if response.greetings.empty?
 
-          @state.supported_greetings.concat(response.greetings)
+          @state.supported_greetings.concat(response.greetings.to_a)
         end
       end
 

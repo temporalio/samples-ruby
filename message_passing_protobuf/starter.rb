@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
+# Add generated protobuf directory to load path
+$LOAD_PATH.unshift(File.expand_path('generated', __dir__))
+
 require 'temporalio/client'
 require 'temporalio/env_config'
+require 'securerandom'
 require_relative 'greeting_workflow'
 require_relative 'generated/temporal/message_passing_protobuf/v1/workflows_pb'
 
@@ -21,19 +25,19 @@ payload_converter = Temporalio::Converters::PayloadConverter::Composite.new(
 data_converter = Temporalio::Converters::DataConverter.new(payload_converter: payload_converter)
 
 # Create a client
-client = Temporalio::Client.connect(*args, **kwargs, data_converter: data_converter)
+client = Temporalio::Client.connect(*args, **kwargs, data_converter: data_converter,logger: Logger.new($stdout, level: Logger::INFO))
 
 # Start the workflow
 puts 'Starting workflow'
 handle = client.start_workflow(
   MessagePassingProtobuf::GreetingWorkflow,
-  args: Temporal::MessagePassingProtobuf::V1::StartGreetingRequest.new(
+  Temporal::MessagePassingProtobuf::V1::StartGreetingRequest.new(
     timestamp: Google::Protobuf::Timestamp.new(seconds: Time.now.to_i, nanos: Time.now.nsec),
     language: 'english',
     supported_languages: ['english', 'chinese']
   ),
-  id: 'message-passing-simple-sample-workflow-id',
-  task_queue: 'message-passing-simple-sample',
+  id: "wf-#{SecureRandom.uuid}",
+  task_queue: 'message-passing-protobuf-sample',
 )
 
 # Send a query

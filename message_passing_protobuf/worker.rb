@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# Add generated protobuf directory to load path
+$LOAD_PATH.unshift(File.expand_path('generated', __dir__))
+
 require_relative 'call_greeting_service'
 require_relative 'greeting_workflow'
 require 'logger'
@@ -23,14 +26,15 @@ payload_converter = Temporalio::Converters::PayloadConverter::Composite.new(
 data_converter = Temporalio::Converters::DataConverter.new(payload_converter: payload_converter)
 
 # Create a client
-client = Temporalio::Client.connect(*args, **kwargs, data_converter: data_converter)
+client = Temporalio::Client.connect(*args, **kwargs, data_converter: data_converter,logger: Logger.new($stdout, level: Logger::DEBUG))
 
 # Create worker with the activity and workflow
 worker = Temporalio::Worker.new(
   client:,
-  task_queue: 'message-passing-simple-sample',
+  task_queue: 'message-passing-protobuf-sample',
   activities: [MessagePassingProtobuf::GetGreetings],
-  workflows: [MessagePassingProtobuf::GreetingWorkflow]
+  workflows: [MessagePassingProtobuf::GreetingWorkflow],
+  logger: Logger.new($stdout, level: Logger::DEBUG),
 )
 
 # Run the worker until SIGINT
