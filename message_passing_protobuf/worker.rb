@@ -3,7 +3,7 @@
 # Add generated protobuf directory to load path
 $LOAD_PATH.unshift(File.expand_path('generated', __dir__))
 
-require_relative 'call_greeting_service'
+require_relative 'get_greetings'
 require_relative 'greeting_workflow'
 require 'logger'
 require 'temporalio/client'

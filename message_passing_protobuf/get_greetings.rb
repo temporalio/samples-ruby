@@ -6,17 +6,6 @@ require_relative 'generated/temporal/message_passing_protobuf/v1/workflows_pb'
 require_relative 'generated/temporal/message_passing_protobuf/v1/values_pb'
 
 module MessagePassingProtobuf
-  class CallGreetingService < Temporalio::Activity::Definition
-    def execute(to_language)
-      # Simulate a network call
-      sleep(0.2)
-      # This intentionally returns nil on not found
-      GetGreetings.greetings[to_language.to_sym]
-    end
-
-
-  end
-
   class GetGreetings < Temporalio::Activity::Definition
     def execute(input)
       # Simulate a network call

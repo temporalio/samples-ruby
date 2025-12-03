@@ -4,7 +4,7 @@
 $LOAD_PATH.unshift(File.expand_path('../../message_passing_protobuf/generated', __dir__))
 
 require 'test'
-require 'message_passing_protobuf/call_greeting_service'
+require 'message_passing_protobuf/get_greetings'
 require 'message_passing_protobuf/greeting_workflow'
 require 'securerandom'
 require 'temporalio/testing'
@@ -39,7 +39,7 @@ module MessagePassingProtobuf
         worker = Temporalio::Worker.new(
           client: client,
           task_queue: "tq-#{SecureRandom.uuid}",
-          activities: [CallGreetingService, GetGreetings],
+          activities: [ GetGreetings],
           workflows: [GreetingWorkflow],
           logger: logger
         )

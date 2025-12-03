@@ -1,4 +1,4 @@
-# Message Passing Simple
+# Message Passing Protobuf
 
 This sample has a simple workflow that accepts signals, queries, and updates.
 
@@ -22,4 +22,4 @@ Language changed: chinese -> arabic
 Workflow result: مرحبا بالعالم
 ```
 
-There are also [tests](../test/message_passing_simple/greeting_workflow_test.rb).
+There are also [tests](../test/message_passing_protobuf/greeting_workflow_test.rb).

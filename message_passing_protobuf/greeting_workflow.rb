@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'temporalio/workflow'
-require_relative 'call_greeting_service'
+require_relative 'get_greetings'
 require_relative 'generated/temporal/message_passing_protobuf/v1/workflows_pb'
 
 module MessagePassingProtobuf
