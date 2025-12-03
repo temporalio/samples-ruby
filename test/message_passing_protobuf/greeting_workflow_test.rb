@@ -16,14 +16,31 @@ module MessagePassingProtobuf
         logger = Logger.new($stdout)
         logger.level = Logger::DEBUG  # Set to DEBUG for detailed logs
 
+        # Create custom data converter with BinaryProtobuf before JSONProtobuf
+        payload_converter = Temporalio::Converters::PayloadConverter::Composite.new(
+          Temporalio::Converters::PayloadConverter::BinaryNull.new,
+          Temporalio::Converters::PayloadConverter::BinaryPlain.new,
+          Temporalio::Converters::PayloadConverter::BinaryProtobuf.new,  # Binary first!
+          Temporalio::Converters::PayloadConverter::JSONProtobuf.new,
+          Temporalio::Converters::PayloadConverter::JSONPlain.new
+        )
+        data_converter = Temporalio::Converters::DataConverter.new(payload_converter: payload_converter)
+
+        # Override the client's data converter
+        client = Temporalio::Client.new(
+          connection: env.client.connection,
+          namespace: env.client.namespace,
+          data_converter: data_converter
+        )
+
         worker = Temporalio::Worker.new(
-          client: env.client,
+          client: client,
           task_queue: "tq-#{SecureRandom.uuid}",
           activities: [CallGreetingService, GetGreetings],
           workflows: [GreetingWorkflow],
           logger: logger
         )
-        worker.run { yield env.client, worker }
+        worker.run { yield client, worker }
       end
     end
 

@@ -44,20 +44,13 @@ module MessagePassingProtobuf
       )
     end
     def self.greetings
-      # Temporarily using ASCII-only greetings to debug encoding issues
-      # Original greetings:
-      # arabic: 'مرحبا بالعالم',
-      # chinese: '你好，世界',
-      # french: 'Bonjour, monde',
-      # hindi: 'नमस्ते दुनिया',
-      # portuguese: 'Olá mundo',
       @greetings ||= {
-        arabic: 'Marhaba!',
-        chinese: 'Ni hao!',
+        arabic: 'مرحبا بالعالم',
+        chinese: '你好，世界',
         english: 'Hello, world',
-        french: 'Bonjour!',
-        hindi: 'Namaste!',
-        portuguese: 'Ola!',
+        french: 'Bonjour, monde',
+        hindi: 'नमस्ते दुनिया',
+        portuguese: 'Olá mundo',
         spanish: 'Hola mundo'
       }
     end
