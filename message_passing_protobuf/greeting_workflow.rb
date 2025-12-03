@@ -14,12 +14,10 @@ module MessagePassingProtobuf
   # activity which calls a remote service, giving access to language translations which are not available in local
   # workflow state.
   class GreetingWorkflow < Temporalio::Workflow::Definition
-    # This is the equivalent of:
-    #    workflow_query
-    #    def language
-    #        @language
-    #    end
-    workflow_query_attr_reader :language
+    workflow_query
+    def language
+      @state.language
+    end
 
     workflow_init
     def initialize(input)
@@ -27,7 +25,7 @@ module MessagePassingProtobuf
       @state = Temporal::MessagePassingProtobuf::V1::GreetingStateResponse.new(
         args: input,
         language: input.language,
-        approved_for_release: false,
+        approval: nil,
         supported_greetings: [],
       )
     end
@@ -36,7 +34,7 @@ module MessagePassingProtobuf
 
       unless @state.supported_greetings.size > 0
         # first time we will load the greetings from the supported_greetings
-        request = Temporal::MessagePassingProtobuf::V1::GetGreetingsRequest.new(languages=@state.args.supported_languages)
+        request = Temporal::MessagePassingProtobuf::V1::GetGreetingsRequest.new(languages: @state.args.supported_languages.to_a)
         response = Temporalio::Workflow.execute_local_activity(
           GetGreetings, request, start_to_close_timeout: 10
         )
@@ -44,7 +42,7 @@ module MessagePassingProtobuf
       end
       # In addition to waiting for the `approve` signal, we also wait for all handlers to finish. Otherwise, the
       # workflow might return its result while an async set_language_using_activity update is in progress.
-      Temporalio::Workflow.wait_condition { @state.approved_for_release && Temporalio::Workflow.all_handlers_finished? }
+      Temporalio::Workflow.wait_condition { @state.approval.nil? && Temporalio::Workflow.all_handlers_finished? }
 
       # Find the first greeting that matches the current language
       greeting = get_current_greeting
@@ -60,19 +58,20 @@ module MessagePassingProtobuf
     end
 
     workflow_query
-    def get_state(input)
+    def get_state(_input = nil)
       @state
     end
 
     workflow_signal
     def approve(input)
       @state.approval = Temporal::MessagePassingProtobuf::V1::Approval.new(
-        approver_name = input.name,
+        approver_name: input.name
       )
     end
 
     workflow_update
-    def set_language(cmd) # rubocop:disable Naming/AccessorMethodName
+    def set_language(cmd)
+      # rubocop:disable Naming/AccessorMethodName
       # An update handler can mutate the workflow state and return a value.
       prev = @state.language
       @state.language = cmd.language
@@ -80,10 +79,10 @@ module MessagePassingProtobuf
     end
 
     workflow_update_validator(:set_language)
-    def validate_set_language(input)
-      valid = @state.supported_greetings.find { |g| g.language == input.language }
+    def validate_set_language(cmd)
+      valid = @state.supported_greetings.find { |g| g.language == cmd.language }
       # In an update validator you raise any exception to reject the update.
-      raise "#{input.language} is not supported" unless valid
+      raise "#{cmd.language} is not supported" unless valid
     end
 
     workflow_update
@@ -96,7 +95,7 @@ module MessagePassingProtobuf
         # apply_language_with_lookup are processed in order.
         @apply_language_mutex ||= Temporalio::Workflow::Mutex.new
         @apply_language_mutex.synchronize do
-          request = Temporal::MessagePassingProtobuf::V1::GetGreetingsRequest.new(languages=[input.language])
+          request = Temporal::MessagePassingProtobuf::V1::GetGreetingsRequest.new(languages: [input.language])
 
           # returns Temporal::MessagePassingProtobuf::V1::GetGreetingsResponse
           response = Temporalio::Workflow.execute_activity(
@@ -113,7 +112,10 @@ module MessagePassingProtobuf
       end
 
       if input.set_language
-        set_language(Temporal::MessagePassingProtobuf::V1::SetLanguage.new(language: input.language))
+        set_language(Temporal::MessagePassingProtobuf::V1::SetLanguageRequest.new(language: input.language))
+      else
+        @state.language # Return current language if not setting
+      end
     end
   end
 end

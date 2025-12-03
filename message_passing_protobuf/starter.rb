@@ -3,6 +3,7 @@
 require 'temporalio/client'
 require 'temporalio/env_config'
 require_relative 'greeting_workflow'
+require_relative 'generated/temporal/message_passing_protobuf/v1/workflows_pb'
 
 # Load config and apply defaults
 args, kwargs = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
@@ -16,29 +17,42 @@ client = Temporalio::Client.connect(*args, **kwargs)
 puts 'Starting workflow'
 handle = client.start_workflow(
   MessagePassingProtobuf::GreetingWorkflow,
+  args: Temporal::MessagePassingProtobuf::V1::StartGreetingRequest.new(
+    timestamp: Google::Protobuf::Timestamp.new(seconds: Time.now.to_i, nanos: Time.now.nsec),
+    language: 'english',
+    supported_languages: ['english', 'chinese']
+  ),
   id: 'message-passing-simple-sample-workflow-id',
-  task_queue: 'message-passing-simple-sample'
+  task_queue: 'message-passing-simple-sample',
 )
 
 # Send a query
-supported_languages = handle.query(MessagePassingProtobuf::GreetingWorkflow.get_state, { include_unsupported: false })
-puts "Supported languages: #{supported_languages}"
+state = handle.query(MessagePassingProtobuf::GreetingWorkflow.get_state)
+puts "Supported languages: #{state.args.supported_languages}"
 
 # Execute an update
-prev_language = handle.execute_update(MessagePassingProtobuf::GreetingWorkflow.set_language, :chinese)
-curr_language = handle.query(MessagePassingProtobuf::GreetingWorkflow.language)
-puts "Language changed: #{prev_language} -> #{curr_language}"
+prev_language = handle.execute_update(MessagePassingProtobuf::GreetingWorkflow.set_language,
+                                      Temporal::MessagePassingProtobuf::V1::SetLanguageRequest.new(
+  language: 'chinese',
+  ))
+state = handle.query(MessagePassingProtobuf::GreetingWorkflow.get_state)
+puts "Language changed: #{prev_language} -> #{state.language}"
 
 # Start an update and then wait for it to complete
 update_handle = handle.start_update(
-  MessagePassingProtobuf::GreetingWorkflow.apply_language_with_lookup,
-  :arabic,
+  MessagePassingProtobuf::GreetingWorkflow.support_language,
+  Temporal::MessagePassingProtobuf::V1::SupportLanguageRequest.new(
+    language: 'arabic',
+    set_language: true,
+    ),
   wait_for_stage: Temporalio::Client::WorkflowUpdateWaitStage::ACCEPTED
 )
 prev_language = update_handle.result
-curr_language = handle.query(MessagePassingProtobuf::GreetingWorkflow.language)
-puts "Language changed: #{prev_language} -> #{curr_language}"
+state = handle.query(MessagePassingProtobuf::GreetingWorkflow.get_state)
+puts "Language changed: #{prev_language} -> #{state.language}"
 
 # Send signal and wait for workflow to complete
-handle.signal(MessagePassingProtobuf::GreetingWorkflow.approve, { name: 'John Q. Approver' })
+handle.signal(MessagePassingProtobuf::GreetingWorkflow.approve, Temporal::MessagePassingProtobuf::V1::ApproveForReleaseRequest.new(
+  name: 'John Q. Approver'))
+
 puts "Workflow result: #{handle.result}"

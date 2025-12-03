@@ -19,7 +19,7 @@ client = Temporalio::Client.connect(*args, **kwargs)
 worker = Temporalio::Worker.new(
   client:,
   task_queue: 'message-passing-simple-sample',
-  activities: [MessagePassingProtobuf::CallGreetingService],
+  activities: [MessagePassingProtobuf::GetGreetings],
   workflows: [MessagePassingProtobuf::GreetingWorkflow]
 )
 
