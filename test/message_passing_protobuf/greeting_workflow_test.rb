@@ -100,7 +100,7 @@ module MessagePassingProtobuf
       end
     end
 
-    def test_apply_language_with_lookup
+    def test_support_language
       with_worker_running do |client, worker|
         handle = client.start_workflow(GreetingWorkflow,
                                        Temporal::MessagePassingProtobuf::V1::StartGreetingRequest.new(
