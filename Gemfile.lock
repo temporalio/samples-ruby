@@ -14,31 +14,31 @@ GEM
     ast (2.4.3)
     base64 (0.3.0)
     bigdecimal (3.3.1)
-    google-protobuf (4.33.0)
+    google-protobuf (4.33.2)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.33.0-aarch64-linux-gnu)
+    google-protobuf (4.33.2-aarch64-linux-gnu)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.33.0-aarch64-linux-musl)
+    google-protobuf (4.33.2-aarch64-linux-musl)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.33.0-arm64-darwin)
+    google-protobuf (4.33.2-arm64-darwin)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.33.0-x86-linux-gnu)
+    google-protobuf (4.33.2-x86-linux-gnu)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.33.0-x86-linux-musl)
+    google-protobuf (4.33.2-x86-linux-musl)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.33.0-x86_64-darwin)
+    google-protobuf (4.33.2-x86_64-darwin)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.33.0-x86_64-linux-gnu)
+    google-protobuf (4.33.2-x86_64-linux-gnu)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.33.0-x86_64-linux-musl)
+    google-protobuf (4.33.2-x86_64-linux-musl)
       bigdecimal
       rake (>= 13)
     googleapis-common-protos-types (1.22.0)
@@ -70,15 +70,15 @@ GEM
     grpc (1.76.0-x86_64-linux-musl)
       google-protobuf (>= 3.25, < 5.0)
       googleapis-common-protos-types (~> 1.0)
-    json (2.16.0)
+    json (2.17.1)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
     logger (1.7.0)
-    minitest (5.26.1)
+    minitest (5.26.2)
     mustermann (3.0.4)
       ruby2_keywords (~> 0.0.1)
     nio4r (2.7.5)
-    oj (3.16.12)
+    oj (3.16.13)
       bigdecimal (>= 3.0)
       ostruct (>= 0.2)
     opentelemetry-api (1.7.0)
@@ -117,7 +117,7 @@ GEM
     rack-session (2.1.1)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
-    rackup (2.2.1)
+    rackup (2.3.1)
       rack (>= 3)
     rainbow (3.1.1)
     rake (13.3.1)
@@ -145,25 +145,25 @@ GEM
       rack-protection (= 4.2.1)
       rack-session (>= 2.0.0, < 3)
       tilt (~> 2.0)
-    temporalio (1.0.0)
+    temporalio (1.1.0)
       google-protobuf (>= 3.25.0)
       logger
-    temporalio (1.0.0-aarch64-linux)
+    temporalio (1.1.0-aarch64-linux)
       google-protobuf (>= 3.25.0)
       logger
-    temporalio (1.0.0-aarch64-linux-musl)
+    temporalio (1.1.0-aarch64-linux-musl)
       google-protobuf (>= 3.25.0)
       logger
-    temporalio (1.0.0-arm64-darwin)
+    temporalio (1.1.0-arm64-darwin)
       google-protobuf (>= 3.25.0)
       logger
-    temporalio (1.0.0-x86_64-darwin)
+    temporalio (1.1.0-x86_64-darwin)
       google-protobuf (>= 3.25.0)
       logger
-    temporalio (1.0.0-x86_64-linux)
+    temporalio (1.1.0-x86_64-linux)
       google-protobuf (>= 3.25.0)
       logger
-    temporalio (1.0.0-x86_64-linux-musl)
+    temporalio (1.1.0-x86_64-linux-musl)
       google-protobuf (>= 3.25.0)
       logger
     tilt (2.6.1)
