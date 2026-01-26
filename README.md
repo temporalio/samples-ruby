@@ -6,7 +6,7 @@ This is the set of Ruby samples for the [Ruby SDK](https://github.com/temporalio
 
 Prerequisites:
 
-* Ruby 3.2+
+* Ruby 3.3+
 * Local Temporal server running (can [install CLI](https://docs.temporal.io/cli#install) then
   [run a dev server](https://docs.temporal.io/cli#start-dev-server))
 * `bundle install` run in the root

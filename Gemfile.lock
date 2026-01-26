@@ -145,25 +145,25 @@ GEM
       rack-protection (= 4.2.1)
       rack-session (>= 2.0.0, < 3)
       tilt (~> 2.0)
-    temporalio (1.1.0)
+    temporalio (1.2.0)
       google-protobuf (>= 3.25.0)
       logger
-    temporalio (1.1.0-aarch64-linux)
+    temporalio (1.2.0-aarch64-linux)
       google-protobuf (>= 3.25.0)
       logger
-    temporalio (1.1.0-aarch64-linux-musl)
+    temporalio (1.2.0-aarch64-linux-musl)
       google-protobuf (>= 3.25.0)
       logger
-    temporalio (1.1.0-arm64-darwin)
+    temporalio (1.2.0-arm64-darwin)
       google-protobuf (>= 3.25.0)
       logger
-    temporalio (1.1.0-x86_64-darwin)
+    temporalio (1.2.0-x86_64-darwin)
       google-protobuf (>= 3.25.0)
       logger
-    temporalio (1.1.0-x86_64-linux)
+    temporalio (1.2.0-x86_64-linux)
       google-protobuf (>= 3.25.0)
       logger
-    temporalio (1.1.0-x86_64-linux-musl)
+    temporalio (1.2.0-x86_64-linux-musl)
       google-protobuf (>= 3.25.0)
       logger
     tilt (2.6.1)
