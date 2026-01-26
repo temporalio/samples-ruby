@@ -16,7 +16,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest]
         # Earliest and latest supported
-        rubyVersion: ["3.2", "3.4"]
+        rubyVersion: ["3.3", "4.0"]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
