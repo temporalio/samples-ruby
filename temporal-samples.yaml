@@ -1,0 +1,7 @@
+version: 1
+language: ruby
+repo: temporalio/samples-ruby
+scaffold:
+  Gemfile: |
+    source 'https://rubygems.org'
+    gem 'temporalio'
