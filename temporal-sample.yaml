@@ -1,0 +1,27 @@
+version: 1
+language: ruby
+scaffold:
+  Gemfile: |
+    source 'https://rubygems.org'
+    gem 'temporalio'
+samples:
+  - path: activity_simple
+    description: Simple activity and workflow calling
+  - path: activity_worker
+    description: Go workflow calling Ruby activity
+  - path: activity_heartbeating
+    description: Activity heartbeating and cancellation handling with progress resume
+  - path: message_passing_simple
+    description: Workflow accepting signals, queries, and updates
+  - path: polling
+    description: Polling best practices
+  - path: context_propagation
+    description: Thread/fiber local propagation via interceptor
+  - path: worker_specific_task_queues
+    description: Unique Task Queue per Worker for host-specific activities
+  - path: client_mtls
+    description: Mutual TLS authentication
+  - path: rails_app
+    description: API-only Rails app with shopping cart workflow
+  - path: sorbet_generic
+    description: Sorbet type-checked workflow and activity definitions
