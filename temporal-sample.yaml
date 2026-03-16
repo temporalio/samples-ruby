@@ -25,3 +25,5 @@ samples:
     description: API-only Rails app with shopping cart workflow
   - path: sorbet_generic
     description: Sorbet type-checked workflow and activity definitions
+  - path: coinbase_ruby
+    description: Interoperability between Coinbase Ruby SDK and Temporal Ruby SDK
