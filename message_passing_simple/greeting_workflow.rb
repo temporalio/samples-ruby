@@ -70,7 +70,7 @@ module MessagePassingSimple
         # We use a mutex so that, if this handler is executed multiple times, each execution can schedule the activity
         # only when the previously scheduled activity has completed. This ensures that multiple calls to
         # apply_language_with_lookup are processed in order.
-        @apply_language_mutex ||= Mutex.new
+        @apply_language_mutex ||= Temporalio::Workflow::Mutex.new
         @apply_language_mutex.synchronize do
           greeting = Temporalio::Workflow.execute_activity(
             CallGreetingService, new_language, start_to_close_timeout: 10
