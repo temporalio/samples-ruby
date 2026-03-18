@@ -7,23 +7,83 @@ scaffold:
 samples:
   - path: activity_simple
     description: Simple activity and workflow calling
+    commands:
+      - cmd: bundle install
+      - cmd: bundle exec ruby activity_simple/worker.rb
+      - cmd: bundle exec ruby activity_simple/starter.rb
+        new_terminal: true
   - path: activity_worker
     description: Go workflow calling Ruby activity
+    commands:
+      - cmd: bundle install
+      - cmd: cd activity_worker/go-workflow && go run .
+      - cmd: bundle exec ruby activity_worker/activity_worker.rb
+        new_terminal: true
+      - cmd: bundle exec ruby activity_worker/starter.rb
+        new_terminal: true
   - path: activity_heartbeating
     description: Activity heartbeating and cancellation handling with progress resume
+    commands:
+      - cmd: bundle install
+      - cmd: bundle exec ruby activity_heartbeating/worker.rb
+      - cmd: bundle exec ruby activity_heartbeating/starter.rb
+        new_terminal: true
   - path: message_passing_simple
     description: Workflow accepting signals, queries, and updates
+    commands:
+      - cmd: bundle install
+      - cmd: bundle exec ruby message_passing_simple/worker.rb
+      - cmd: bundle exec ruby message_passing_simple/starter.rb
+        new_terminal: true
   - path: polling
     description: Polling best practices
+    commands:
+      - cmd: bundle install
+      - cmd: bundle exec ruby polling/infrequent/worker.rb
+      - cmd: bundle exec ruby polling/infrequent/starter.rb
+        new_terminal: true
   - path: context_propagation
     description: Thread/fiber local propagation via interceptor
+    commands:
+      - cmd: bundle install
+      - cmd: bundle exec ruby context_propagation/worker.rb
+      - cmd: bundle exec ruby context_propagation/starter.rb
+        new_terminal: true
   - path: worker_specific_task_queues
     description: Unique Task Queue per Worker for host-specific activities
+    commands:
+      - cmd: bundle install
+      - cmd: bundle exec ruby worker_specific_task_queues/worker.rb
+      - cmd: bundle exec ruby worker_specific_task_queues/run_workflow.rb
+        new_terminal: true
   - path: client_mtls
     description: Mutual TLS authentication
+    commands:
+      - cmd: bundle install
+      - cmd: bundle exec ruby client_mtls/worker.rb --client-cert /path/to/client.pem --client-key /path/to/client.key
+      - cmd: bundle exec ruby client_mtls/starter.rb --client-cert /path/to/client.pem --client-key /path/to/client.key
+        new_terminal: true
   - path: rails_app
     description: API-only Rails app with shopping cart workflow
+    commands:
+      - cmd: bundle install
+      - cmd: cd rails_app && bundle install
+      - cmd: cd rails_app && bin/rails db:migrate
+      - cmd: cd rails_app && bin/rails db:seed
+      - cmd: cd rails_app && bin/rails runner script/temporal_worker.rb
+      - cmd: cd rails_app && bin/rails server
+        new_terminal: true
   - path: sorbet_generic
     description: Sorbet type-checked workflow and activity definitions
+    commands:
+      - cmd: bundle install
+      - cmd: bundle exec ruby sorbet_generic/worker.rb
+      - cmd: bundle exec ruby sorbet_generic/starter.rb
+        new_terminal: true
   - path: coinbase_ruby
     description: Interoperability between Coinbase Ruby SDK and Temporal Ruby SDK
+    commands:
+      - cmd: bundle install
+      - cmd: bundle exec ruby coinbase_ruby/worker.rb
+      - cmd: bundle exec ruby coinbase_ruby/starter.rb
+        new_terminal: true
