@@ -7,10 +7,15 @@ module TemporalClient
 
     # Load config and apply defaults
     args, kwargs = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
-    args[0] ||= 'localhost:7233' # Default address
     args[1] ||= 'default' # Default namespace
 
-    @instance = Temporalio::Client.connect(*args, **kwargs, logger: Rails.logger)
+    @instance = Temporalio::Client.connect(self.server_target, args[1], **kwargs, logger: Rails.logger)
+  end
+
+  def self.server_target
+    args, _kwargs = Temporalio::EnvConfig::ClientConfig.load_client_connect_options
+    server = args[0]
+    server || 'localhost:7233'
   end
 
   def self.instance=(instance)
