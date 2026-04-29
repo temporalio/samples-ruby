@@ -68,7 +68,7 @@ GEM
       google-protobuf (>= 3.25.0)
       logger
     thor (1.3.2)
-    yard (0.9.37)
+    yard (0.9.42)
     yard-sorbet (0.9.0)
       sorbet-runtime
       yard
