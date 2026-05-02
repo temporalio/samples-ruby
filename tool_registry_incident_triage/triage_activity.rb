@@ -279,7 +279,11 @@ module Triage
       id: wf_id,
       task_queue: task_queue,
       start_signal: 'approval-request',
-      start_signal_args: [req]
+      start_signal_args: [req],
+      # If the activity retries while the approval workflow is still running,
+      # attach to the existing one rather than starting a new approval. The
+      # operator should not get a second prompt for the same incident.
+      id_conflict_policy: Temporalio::WorkflowIDConflictPolicy::USE_EXISTING
     )
     handle.result
   end
