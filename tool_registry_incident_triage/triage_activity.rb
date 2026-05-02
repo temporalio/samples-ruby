@@ -285,6 +285,24 @@ module Triage
       # operator should not get a second prompt for the same incident.
       id_conflict_policy: Temporalio::WorkflowIDConflictPolicy::USE_EXISTING
     )
-    handle.result
+
+    # Heartbeat every 30 seconds while waiting on the approval workflow.
+    # AgenticSession only heartbeats between LLM turns, so a multi-hour
+    # operator wait inside this handler would otherwise trigger heartbeat
+    # timeout in 120s and kill the activity.
+    stop = false
+    ticker = Thread.new do
+      until stop
+        sleep 30
+        Temporalio::Activity::Context.current.heartbeat unless stop
+      end
+    end
+
+    begin
+      handle.result
+    ensure
+      stop = true
+      ticker.join
+    end
   end
 end
