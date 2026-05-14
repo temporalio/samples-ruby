@@ -42,4 +42,5 @@ Rails.application.configure do
 
   # Log to STDOUT
   config.logger   = ActiveSupport::TaggedLogging.logger(STDOUT)
+  config.log_level = "error"
 end
