@@ -1,0 +1,36 @@
+version: 2
+updates:
+  - package-ecosystem: "bundler"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 14
+
+  - package-ecosystem: "bundler"
+    directory: "/rails_app"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 14
+
+  - package-ecosystem: "bundler"
+    directory: "/sorbet_generic"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 14
+
+  - package-ecosystem: "gomod"
+    directory: "/activity_worker/go-workflow"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 14
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 14
