@@ -35,6 +35,7 @@ Prerequisites:
 * [rails_app](rails_app) - Basic Rails API application using Temporal workflows and activities.
 * [saga](saga) - Using undo/compensation using a very simplistic Saga pattern.
 * [sorbet_generic](sorbet_generic) - Proof of concept of how to do _advanced_ Sorbet typing with the SDK.
+* [standalone_activity](standalone_activity) - Execute, start, list, and count Standalone Activities -- Activities run directly from a Client without a Workflow.
 * [updatable_timer](updatable_timer) - Demonstrates a blocking sleep that can be updated.
 * [worker_specific_task_queues](worker_specific_task_queues) - Use a unique Task Queue for each Worker to run a sequence of Activities on the same Worker.
 * [worker_versioning](worker_versioning) - Use the Worker Versioning feature to more easily version your workflows & other code.
