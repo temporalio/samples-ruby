@@ -46,6 +46,16 @@ module ActiveSupport
 
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
+
+    parallelize(workers: :number_of_processors, threshold: 1)
+    parallelize_setup do |_worker|
+      TemporalClient.instance = Temporalio::Client.connect(
+        TemporalClient.server_target,
+        'default',
+        runtime: Temporalio::Runtime.new,
+        logger: Rails.logger
+      )
+    end
   end
 end
 
