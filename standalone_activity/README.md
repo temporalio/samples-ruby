@@ -5,7 +5,7 @@ Activities executed directly from a Client, without a Workflow.
 
 To run, first see [README.md](../README.md) for prerequisites.
 
-**Note: Temporal CLI support for Standalone Activities requires CLI version 1.9.0.** See setup guide: https://docs.temporal.io/cli/setup-cli
+**Note: Temporal CLI support for Standalone Activities requires CLI version 1.9.1.** See setup guide: https://docs.temporal.io/cli/setup-cli
 
 Start a Temporal dev server in one terminal:
 
