@@ -17,6 +17,7 @@ Prerequisites:
 * [activity_heartbeating](activity_heartbeating) - Demonstrate activity heartbeating and proper cancellation handling.
 * [activity_simple](activity_simple) - Simple workflow that calls two activities.
 * [activity_worker](activity_worker) - Use Ruby activities from a workflow in another language.
+* [aws_lambda](aws_lambda) - Run a versioned Temporal worker inside each AWS Lambda invocation.
 * [client_mtls](client_mtls) - Demonstrates how to use mutual TLS (mTLS) authentication with the Temporal Ruby SDK.
 * [coinbase_ruby](coinbase_ruby) - Demonstrate interoperability with the
   [Coinbase Ruby SDK](https://github.com/coinbase/temporal-ruby).
